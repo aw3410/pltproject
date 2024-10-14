@@ -1,1 +1,3 @@
+state = True 
 
+while (c==true)
