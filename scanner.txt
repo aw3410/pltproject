@@ -10,71 +10,70 @@ Def scan(input):
   Open = 0
   
   while (state != sErr and i<len(input))
-	  c = input[i]
-	  If (c == ‘ “ ’):
-		  tokenType = “STRING”
-		  while (c != “ ” “ and c != ‘eof’):
-			  Current  += c
-			  state=𝛿(state, c)
-			  i+=1
-		  if (c == ‘eof’): 
-			  errormessage.append(“open quotation”) 
-      else: 
-        tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
+	c = input[i]
+	if (c == ‘ “ ’):
+		tokenType = “STRING”
+		while (c != “ ” “ and c != ‘eof’):
+			current  += c
+			state=𝛿(state, c)
+			i+=1
+		if (c == ‘eof’): 
+			errormessage.append(“open quotation”) 
+      		else: 
+        		tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
 		
-    elif (c.isDigit()):
-      tokenType = “INTLITERAL”	
-      while( c != EOF and c.isDigit()):
-        Current  += c
-        state=𝛿(state, c)
-        i+=1
-      if (c is not in Operators or c.isAlpha() or c == ‘ “ ’ or c == ‘ ” ’)
-      	/* error */
-      	State = S_err 
-      	errormessage.append(“error at position: “ + i + “. the character is “ + c + “. intliterals can only include digits")
-		  tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
+    	elif (c.isDigit()):
+      		tokenType = “INTLITERAL”	
+      		while( c != EOF and c.isDigit()):
+        		Current  += c
+        		state=𝛿(state, c)
+        		i+=1
+      		if (c is not in Operators or c.isAlpha() or c == ‘ “ ’ or c == ‘ ” ’)
+      			/* error */
+      			State = S_err 
+      			errormessage.append(“error at position: “ + i + “. the character is “ + c + “. intliterals can only include digits")
+		  	tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
 
-    elif(c is in Operators): 
-    	tokenType = “OPERATOR”
-    	while (c != EOF) 
-      	Current  += c
-        state=𝛿(state, c)
-        i+=1
-      tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
+    	elif(c is in Operators): 
+    		tokenType = “OPERATOR”
+    		while (c != EOF) 
+      			Current  += c
+        		state=𝛿(state, c)
+        		i+=1
+      		tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
 
-    elif (c == ‘(’ or c ==‘)’ or c == ‘{’ or c==‘}’):
-			tokenType = “PUNCTUATION” 
-			Current  += c
-      state=𝛿(state, c)
-      if c == “(” or c== “{”:
-        open +=1
-      if c == “)” or c == “}”:
-	      open -=1
-      tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
+    	elif (c == ‘(’ or c ==‘)’ or c == ‘{’ or c==‘}’):
+		tokenType = “PUNCTUATION” 
+		Current  += c
+      		state=𝛿(state, c)
+      		if c == “(” or c== “{”:
+        		open +=1
+      		if c == “)” or c == “}”:
+	      		open -=1
+      		tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
     
-    elif c.isalpha():
+    	elif c.isalpha():
   		while (c.isalpha() or c.isDigit()): 
   			current  += c
-        state=𝛿(state, c)
-        i += 1
-      if (current in keywords): 
-        tokenType = “KEYWORD” 
-        tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
-      elif (current not in keywords): 
-	        tokenType = “IDENTIFIER”
-          tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
-		else:
-			errormessage.append(“error at position: “ + i + “. “ + c + “ is an invalid character”)
-			State = s_err 
+        		state=𝛿(state, c)
+        		i += 1
+      		if (current in keywords): 
+        		tokenType = “KEYWORD” 
+      		elif (current not in keywords): 
+	        	tokenType = “IDENTIFIER”
+          	tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
+	else:
+		errormessage.append(“error at position: “ + i + “. “ + c + “ is an invalid character”)
+		State = s_err 
 			
-	if open != 0:
-		/* error*/
-		errormessage.append(“Open bracket or parenthesis”)
-    state = S_err
+if open != 0:
+	/* error*/
+	errormessage.append(“Open bracket or parenthesis”)
+	state = S_err
 
-  if (state ∈ F): 
-  	/* accept */
-  	print(tokens);
-  elif
-  	/* error/failure */
-  	print(errormessage’) 
+if (state ∈ F): 
+  /* accept */
+  print(tokens);
+elif:
+  /* error/failure */
+  print(errormessage’) 
