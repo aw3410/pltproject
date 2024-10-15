@@ -3,7 +3,8 @@ Def scan(input):
   State = s0
   i=0
   tokenType = ‘’
-  keywords = [“prince”, “princess”, “potion”, “crown”, “tiara”, “villain”, “king”, “queen”, “rose”, “castSpell”]
+  keywords = [“prince”, “potion”, “crown”, “tiara”, “villain”, “king”, “queen”, “rose”, “castSpell”, "paint"]
+  punctuation = [ , | . | ( | ) | { | } | ; | :] //(separated by | instead of comma for clarity)
   Operators = [‘+’,‘=’,‘-’, ‘==’ or c == ‘!=’]
   Tokens = []
   errormessage = []
@@ -42,7 +43,7 @@ Def scan(input):
         		i+=1
       		tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
 
-    	elif (c == ‘(’ or c ==‘)’ or c == ‘{’ or c==‘}’):
+    	elif (c is in punctuation):
 		tokenType = “PUNCTUATION” 
 		Current  += c
       		state=𝛿(state, c)
