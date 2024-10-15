@@ -5,7 +5,7 @@ Def scan(input):
   tokenType = ‘’
   keywords = [“prince”, “potion”, “crown”, “tiara”, “villain”, “king”, “queen”, “rose”, “castSpell”, "paint"]
   punctuation = [ , | . | ( | ) | { | } | :] //(separated by | instead of comma for clarity)
-  Operators = [‘+’,‘=’,‘-’, ‘==’ or c == ‘!=’]
+  Operators = [‘+’,‘=’,‘-’, ‘*’, ‘/’,‘==’ or c == ‘!=’]
   Tokens = []
   errormessage = []
   Open = 0
