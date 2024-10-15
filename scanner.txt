@@ -4,7 +4,7 @@ Def scan(input):
   i=0
   tokenType = ‘’
   keywords = [“prince”, “potion”, “crown”, “tiara”, “villain”, “king”, “queen”, “rose”, “castSpell”, "paint"]
-  punctuation = [ , | . | ( | ) | { | } | ; | :] //(separated by | instead of comma for clarity)
+  punctuation = [ , | . | ( | ) | { | } | :] //(separated by | instead of comma for clarity)
   Operators = [‘+’,‘=’,‘-’, ‘==’ or c == ‘!=’]
   Tokens = []
   errormessage = []
