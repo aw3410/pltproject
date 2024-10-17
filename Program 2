@@ -1,0 +1,48 @@
+Input = 
+castSpell roses():
+rosePetals = 5
+rose = alive
+while rose == alive:
+	paint(“rose alive”)
+	rosePetals = rosePetals – 1
+  if rosePetals == 0:
+    rose = dead
+
+Output:
+<KEYWORD, “castSpell”>
+<IDENTIFIER, “roses”>
+<PUNCTUATION, “(”>
+<PUNCTUATION, “)”>
+<PUNCTUATION, “:”>
+<IDENTIFIER, “rosePetals”>
+<OPERATOR, “=”>
+<INTLITERAL, “5”>
+<IDENTIFIER, “rose”>
+<OPERATOR, “=”>
+<KEYWORD = "alive">
+<KEYWORD, “while”>
+<IDENTIFIER, “rose”>
+<OPERATOR, “==”>
+<KEYWORD, “alive”>
+<PUNCTUATION, “:”>
+<KEYWORD, “paint”>
+<PUNCTUATION, “(”>
+<STRING, “rose alive”>
+<PUNCTUATION, “)”>
+<IDENTIFIER, “rosePetals”>
+<OPERATOR, “=”>
+<IDENTIFIER, “rosePetals”>
+<OPERATOR, “-”>
+<INTLITERAL, “1”>
+<KEYWORD, "if">
+<IDENTIFIER, “rosePetals”>
+<OPERATOR, “==”>
+<INTLITERAL, “0”>
+<PUNCTUATION, “:”>
+<IDENTIFIER, “rose”>
+<OPERATOR, “=”>
+<KEYWORD = "dead">
+
+
+
+
