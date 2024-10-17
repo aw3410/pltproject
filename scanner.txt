@@ -3,49 +3,51 @@ Def scan(input):
   State = s0
   i=0
   tokenType = ‘’
-  keywords = [“potion”, “crown”, “tiara”, “king”, “queen”, “rose”, “castSpell”, "paint", “onceuponatime”, “happilyafterever”, "inanotherkingdom"]
-  punctuation = [ , | . | ( | ) | { | } | :] //(separated by | instead of comma for clarity)
+  keywords = [“potion”, "prince","villain", “crown”, “tiara”, “king”, “queen”, “rose”, “castSpell”, "paint", “onceuponatime”, “happilyafterever”, "inanotherkingdom",'while","if","alive","dead"]
+  punctuation = [ , | . | ( | ) | { | } | :] (Separated by | instead of comma for clarity)
   Operators = [‘+’,‘=’,‘-’, ‘*’, ‘/’, ‘==’,  ‘<=’, ‘!=’, ‘>=’, ‘>’, ‘<']
   Tokens = []
   errormessage = []
   Open = 0
   
-  while (state != sErr and i<len(input))
+  while (state != s_err and i<len(input))
 	c = input[i]
 	if (c == ‘ “ ’):
+		start = i
 		tokenType = “STRING”
-		while (c != “ ” “ and c != ‘eof’):
+		while (c != “ ” “ and c != ‘EOF’):
 			current  += c
 			state=𝛿(state, c)
 			i+=1
 		if (c == ‘eof’): 
-			errormessage.append(“open quotation”) 
+			errormessage.append(“Unclosed string starting at position ”, start) 
       		else: 
         		tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
 		
     	elif (c.isDigit()):
       		tokenType = “INTLITERAL”	
-      		while( c != EOF and c.isDigit()):
+      		while( c != 'EOF' and c.isDigit()):
         		Current  += c
         		state=𝛿(state, c)
         		i+=1
       		if (c is not in Operators or c.isAlpha() or c == ‘ “ ’ or c == ‘ ” ’)
-      			/* error */
-      			State = S_err 
-      			errormessage.append(“error at position: “ + i + “. the character is “ + c + “. intliterals can only include digits")
-		  	tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
+      			state = s_err 
+      			errormessage.append(“Error at position: “ + i + “. the character is “ + c + “. intliterals can only include digits")
+		tokens.append(“<” +tokenType+ “, ” + current + “>”/n) 
 
     	elif(c is in Operators): 
     		tokenType = “OPERATOR”
-    		while (c != EOF) 
-      			Current  += c
+		if (i==0):
+			state = s_err
+    		while (c != 'EOF') 
+      			current  += c
         		state=𝛿(state, c)
         		i+=1
       		tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
 
     	elif (c is in punctuation):
 		tokenType = “PUNCTUATION” 
-		Current  += c
+		current  += c
       		state=𝛿(state, c)
       		if c == “(” or c== “{”:
         		open +=1
@@ -64,17 +66,18 @@ Def scan(input):
 	        	tokenType = “IDENTIFIER”
           	tokens.append(“<” +tokenType+ “, ” + current + “>”/n)
 	else:
-		errormessage.append(“error at position: “ + i + “. “ + c + “ is an invalid character”)
-		State = s_err 
+		errormessage.append(“Error at position: “ + i + “. “ + c + “ is an invalid character”)
+		state = s_err 
 			
 if open != 0:
-	/* error*/
-	errormessage.append(“Open bracket or parenthesis”)
-	state = S_err
+	/* report error*/
+	errormessage.append(“Open bracket or parenthesis.”)
+	state = s_err
 
 if (state ∈ F): 
   /* accept */
   print(tokens);
 elif:
-  /* error/failure */
+  /* report failure */
   print(errormessage’) 
+  state = s_err
