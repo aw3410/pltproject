@@ -1,11 +1,11 @@
 input = 
-castSpell villain(): 
+castSpell howManyvillains(): 
 	if (prince > 5): 
 		villain = 0
 		happilyeverafter villain
 	inanotherkingdom(prince < 5): 
 		villain = 5
-		paint(“too many villains”)
+		happilyeverafter “too many villains”
 
 
 scan(input) 
@@ -13,29 +13,29 @@ scan(input)
 <KEYWORD, “castSpell”>
 <PUNCTUATION, “(”>
 <PUNCTUATION, “)”>
-<IDENTIFIER, "villain">
+<IDENTIFIER, "howManyvillains">
 <PUNCTUATION, “:”>
 <KEYWORD, “if”>
 <PUNCTUATION, “(”>
-<KEYWORD, “prince”>
+<IDENTIFIER, “prince”>
 <OPERATOR, “>”>
 <INTLITERAL, “5”> 
 <PUNCTUATION, “)”>
 <PUNCTUATION, “:”>
-<KEYWORD, “villain”>
+<IDENTIFIER, “villain”>
 <OPERATOR, “=”>
 <INTLITERAL, “0”> 
 <KEYWORD, “happilyeverafter”>
-<KEYWORD, “villain”>
+<IDENTIFIER, “villain”>
 <KEYWORD, “inanotherkingdom”>
 <PUNCTUATION, “(”>
-<KEYWORD, “prince”>
+<IDENTIFIER, “prince”>
 <OPERATOR, “<”>
 <INTLITERAL, “5”> 
 <PUNCTUATION, “)”>
 <PUNCTUATION, “:”>
-<KEYWORD, “villain”>
+<IDENTIFIER, “villain”>
 <OPERATOR, “=”>
 <INTLITERAL, “5”> 
-<KEYWORD, “paint”>
+<KEYWORD, “happilyeverafter”>
 <STRING, “too many villains”>
