@@ -1,10 +1,10 @@
 input = 
 castSpell howManyvillains(): 
-	if (prince > 5): 
-		villain = 0
+	if (numberofprinces > 5): 
+		numberofvillains = 0
 		happilyeverafter villain
-	inanotherkingdom(prince < 5): 
-		villain = 5
+	inanotherkingdom(numberofprinces < 5): 
+		numberofvillains = 5
 		happilyeverafter “too many villains”
 
 
@@ -17,24 +17,24 @@ scan(input)
 <PUNCTUATION, “:”>
 <KEYWORD, “if”>
 <PUNCTUATION, “(”>
-<IDENTIFIER, “prince”>
+<IDENTIFIER, “numberofprinces”>
 <OPERATOR, “>”>
 <INTLITERAL, “5”> 
 <PUNCTUATION, “)”>
 <PUNCTUATION, “:”>
-<IDENTIFIER, “villain”>
+<IDENTIFIER, “numberofvillains”>
 <OPERATOR, “=”>
 <INTLITERAL, “0”> 
 <KEYWORD, “happilyeverafter”>
-<IDENTIFIER, “villain”>
+<IDENTIFIER, “numberofvillains”>
 <KEYWORD, “inanotherkingdom”>
 <PUNCTUATION, “(”>
-<IDENTIFIER, “prince”>
+<IDENTIFIER, “numberofprinces”>
 <OPERATOR, “<”>
 <INTLITERAL, “5”> 
 <PUNCTUATION, “)”>
 <PUNCTUATION, “:”>
-<IDENTIFIER, “villain”>
+<IDENTIFIER, “numberofvillains”>
 <OPERATOR, “=”>
 <INTLITERAL, “5”> 
 <KEYWORD, “happilyeverafter”>
