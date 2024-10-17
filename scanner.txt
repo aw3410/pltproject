@@ -3,7 +3,7 @@ Def scan(input):
   State = s0
   i=0
   tokenType = ‘’
-  keywords = [“prince”, “potion”, “crown”, “tiara”, “villain”, “king”, “queen”, “rose”, “castSpell”, "paint", “onceuponatime”, “happilyafterever”, "inanotherkingdom"]
+  keywords = [“potion”, “crown”, “tiara”, “king”, “queen”, “rose”, “castSpell”, "paint", “onceuponatime”, “happilyafterever”, "inanotherkingdom"]
   punctuation = [ , | . | ( | ) | { | } | :] //(separated by | instead of comma for clarity)
   Operators = [‘+’,‘=’,‘-’, ‘*’, ‘/’, ‘==’,  ‘<=’, ‘!=’, ‘>=’, ‘>’, ‘<']
   Tokens = []
