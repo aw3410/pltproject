@@ -1,0 +1,6 @@
+input = 
+c@astSpell(): 
+	princess a = 1+5
+
+scan(input) 
+Output: error at position: 1. @ is an invalid character. 
