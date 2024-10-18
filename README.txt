@@ -65,7 +65,12 @@ F = {sStringEnd, sDigit, s_alpha}
 𝛿(s_bracket, [bracket]) → s_bracket
 𝛿(s_alphabet, [punctuation] ) → s_punctuation
 
-
 𝛿(s_alpha, [0-9]) → s_alpha
 𝛿(s_alpha, [a-z]) → s_alpha
+
+In order to run a scanner like the one described above, you would need to follow the following installation steps:
+Installation Steps for Mac: 
+Install homebrew 
+Install bash (if needed)
+Install python with brew install python  
 
