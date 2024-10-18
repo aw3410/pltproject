@@ -68,9 +68,11 @@ F = {sStringEnd, sDigit, s_alpha}
 𝛿(s_alpha, [0-9]) → s_alpha
 𝛿(s_alpha, [a-z]) → s_alpha
 
-In order to run a scanner like the one described above, you would need to follow the following installation steps:
+Part 4 Description
+
+In order to run a scanner like the one described in shell.sh, you would need to follow the following installation steps:
 Installation Steps for Mac: 
-Install homebrew 
-Install bash (if needed)
-Install python with brew install python  
+1. Install homebrew 
+2. Install bash (if needed)
+3. Install python with brew install python  
 
