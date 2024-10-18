@@ -68,6 +68,13 @@ F = {sStringEnd, sDigit, s_alpha}
 𝛿(s_alpha, [0-9]) → s_alpha
 𝛿(s_alpha, [a-z]) → s_alpha
 
+Part 3 Input Program Description
+1. Program 1: This input program creates a function called princess which prints out hello princess. The scanner is able to output the expected tokens without error.  
+2. Program 2: This input program creates a function called roses which prints out roses 5 times. The scanner is able to output the expected tokens without error. 
+3. Program 3: This input program contains an error: '@' is included in the program, but it is not matched to any tokens. The scanner prints out the error at the position it occurs and exits the program. 
+4. Program 4: This input program functions as an if-else program. The scanner is able to output the expected tokens without error. 
+5. Program 5: This input program contains an error: an unclosed string. The scanner prints out the error at the position it occurs and exits the program. 
+
 Part 4 Description
 
 In order to run a scanner like the one described in shell.sh, you would need to follow the following installation steps:
