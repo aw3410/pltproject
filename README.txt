@@ -32,6 +32,7 @@ String literals are contained in quotation marks
 [a-z0-9]*
 STRING(value= “aurora is sleeping”)
 
+Part 2: Scanner 
 Our scanner algorithm is shown in scanner.txt. It lexes the input program character by character  and transitions states accordingly. 
 The scanner ensures that strings are all opened and closed with quotation marks, and that parentheses and brackets are not left open. 
 If either of these are untrue an error will be returned. The scanner ensures that the program follows the grammar rules specified 
