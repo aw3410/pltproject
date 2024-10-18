@@ -32,7 +32,11 @@ String literals are contained in quotation marks
 [a-z0-9]*
 STRING(value= “aurora is sleeping”)
 
-Our scanner algorithm is shown in scanner.txt. It lexes the input program character by character  and transitions states accordingly. The scanner ensures that strings are all opened and closed with quotation marks, and that parentheses and brackets are not left open. If either of these are untrue an error will be returned. The scanner ensures that the program follows the grammar rules specified below and goes to an error state which returns an error message.  Upon processing the first lexical error, it will gracefully exit the program with an error message that states the error and the position in which the error occurs. After reading in a token successfully, as marked by whitespace, the scanner adds the token and its type to a list which is returned after the program results in success. Here are the states, accepting states, and some of the transition rules:  
+Our scanner algorithm is shown in scanner.txt. It lexes the input program character by character  and transitions states accordingly. 
+The scanner ensures that strings are all opened and closed with quotation marks, and that parentheses and brackets are not left open. 
+If either of these are untrue an error will be returned. The scanner ensures that the program follows the grammar rules specified below and goes to an error state which returns an error message.  
+Upon processing the first lexical error, it will gracefully exit the program with an error message that states the error and the position in which the error occurs. 
+After reading in a token successfully, as marked by whitespace, the scanner adds the token and its type to a list which is returned after the program results in success. Here are the states, accepting states, and some of the transition rules:  
 
 State Machine Transition Description
 
