@@ -1,9 +1,0 @@
-Input = 
-
-Belle = “beauty and the beast
-if dress is yellow:
-paint(belle)
-
-scan(input)
-
-Error: Unclosed string starting at position 7.
