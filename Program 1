@@ -1,17 +1,2 @@
-Input = 
-castSpell() princess:
-	paint(“hello princess”)
 
-scan(input)
-
-OUTPUT: 
-<KEYWORD, “castSpell”>
-<PUNCTUATION, “(”>
-<PUNCTUATION, “)”>
-<IDENTIFIER, “princess”>
-<PUNCTUATION, “:”>
-<KEYWORD, “paint”>
-<PUNCTUATION, “(”>
-<STRING, “hello princess”>
-<PUNCTUATION, “)”>
 
