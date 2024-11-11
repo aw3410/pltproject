@@ -219,7 +219,7 @@ def parse_statement_block():
     return statement_block_node
 
 def parse_assignment(left_node):
-    match('ASSIGNMENT_OPERATOR','=')
+
 
     next_token = lookahead()
     
@@ -236,28 +236,35 @@ def parse_assignment(left_node):
     
 
 def parse_expression(left_node):  
-    print("DEBUG: Entering parse_expression")  
 
+    if left_node.type == 'BOOL':  
+        left_node = ASTNode("BOOL", match('BOOL').value)
+    elif left_node.type == 'IDENTIFIER': 
+        left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
+    elif left_node.type == 'INT': 
+        left_node = ASTNode("INT", match('INT').value)
+        print("HERE3")
+    else: 
+        raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")
+    
     #operator token, could be equality_operator or operator (in operators)
     operator_token = lookahead()
-    print(f"DEBUG: Operator token -> type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
-
+    
     if operator_token and operator_token.type == 'OPERATOR' and operator_token.value in operators:
         match('OPERATOR').value
+    else: 
+        raise ParseError(f"Invalid EXPRESSION syntax: Expected an operator, got type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
 
 
     #right token, could be int, id, boolean
     right_node = lookahead()
-    print(f"DEBUG: Right token -> type: {right_node.type}, value: {right_node.value}")
 
-    print("HERE2")
     if right_node.type == 'BOOL':  
-        right_node = ASTNode("BOOL", right_node.value)
+        right_node = ASTNode("BOOL", match('BOOL').value)
     elif right_node.type == 'IDENTIFIER': 
-        right_node = ASTNode("IDENTIFIER", right_node.value)
+        right_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
     elif right_node.type == 'INT': 
-        right_node = ASTNode("INT", right_node.value)
-        print("HERE3")
+        right_node = ASTNode("INT", match('INT').value)
     else: 
         raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")
 
@@ -269,18 +276,21 @@ def parse_condition():
 
     #CONDITION → ASSIGNMENT 
     if left_token.type == 'IDENTIFIER':
-        left_token = match('IDENTIFIER')
-        print("HERE")
+        left_token = ASTNode('IDENTIFIER', match('IDENTIFIER').value)
+
         next_token = lookahead()
         if next_token and next_token.type == 'ASSIGNMENT_OPERATOR':
             return parse_assignment(left_token) 
+        
     elif left_token.type == 'INT': 
-        left_token = match('INT')
+        left_token = ASTNode("INT", match('INT').value)
     elif left_token.type == 'BOOL': 
-        left_token = match('BOOL')
+        left_token = ASTNode("BOOL", match('BOOL').value)
+        return parse_expression(left_token)
+
     
     #CONDITION → EXPRESSION
-    print("SO IM BACK OUT HERE")
+
     return parse_expression(left_token)
     
 
