@@ -6,13 +6,11 @@ class token:
 
 
 
-
-
 class ParseError(Exception):
     pass
 
 class ASTNode:
-    def __init__(self, type, value=None):
+    def __init__(self, type=None, value=None):
         self.type = type
         self.value = value
         self.children = []
@@ -57,13 +55,14 @@ class ExpressionNode(ASTNode):
     def __init__(self, operator, left, right):
         super().__init__("EXPRESSION")
         self.add_child(left)
-        self.add_child(ASTNode("OPERATOR", operator))
+        self.add_child(ASTNode(operator))
         self.add_child(right)
 
 class AssignmentNode(ASTNode):
     def __init__(self, variable, expression):
         super().__init__("ASSIGNMENT")
         self.add_child(variable)
+        self.add_child(ASTNode('='))
         self.add_child(expression)
 
 # INPUT 1 
@@ -80,10 +79,10 @@ class AssignmentNode(ASTNode):
 
 
 
-keywords = ['castSpell', 'if', 'untilClockStrikes','paint']
+keywords = ['castSpell', 'if', 'untilClockStrikes','paint','happilyEverAfter']
 equality_operator = ['is','is not']
-operators = [')', '(', '>=', '<=', '-', '+', '*', '/']
-assignment_operator = ['=']
+operators = [')', '(', '>=', '<=','>','<','-', '+', '*', '/']
+assignment_operator = '='
 
 token_index = 0
 
@@ -108,6 +107,7 @@ def match(expected_type, expected_value=None):
 
 def parse_function():
     token = lookahead()
+    print(token.value)
     
     if token.type == 'KEYWORD' and token.value in keywords:
         func_keyword = match('KEYWORD', token.value)
@@ -117,21 +117,23 @@ def parse_function():
             arg_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
             func_node.add_child(arg_node)
 
-            
             if lookahead() and lookahead().value == '(':
                 match('PUNCTUATION', '(')
                 if lookahead() and lookahead().value == ')':
                     match('PUNCTUATION', ')')  
                 else:
                     raise ParseError("Expected close parenthesis.")
-            else:
+            elif token.value == 'castSpell':
                 # Raise an error if parentheses are missing after identifier
                 raise ParseError("Function declaration must have parentheses after the identifier.")
 
         # Check if there is an opening parenthesis following the keyword (alternative function format)
         elif lookahead() and lookahead().value == '(':
             match('PUNCTUATION', '(')
-                
+            if token.type == 'KEYWORD' and token.value == 'if':
+                    arg_node = parse_condition()  # Assuming parse_condition() exists for handling conditions
+                    func_node.add_child(arg_node)
+
             # Check if there’s something inside the parentheses
             inner_token = lookahead()
             if inner_token.value != ')':
@@ -142,18 +144,16 @@ def parse_function():
                     arg_node = ASTNode("INT", match('INT').value)
                 elif inner_token.type == 'STRING':
                     arg_node = ASTNode("STRING", match('STRING').value)
-                elif inner_token.type == 'KEYWORD' and inner_token.value == 'if':
-                    arg_node = parse_condition()  # Assuming parse_condition() exists for handling conditions
+                
     
                 # Add the argument as a child node
                 func_node.add_child(arg_node)
-
+            
             match('PUNCTUATION', ')')
         
         else: 
             raise ParseError("Invalid function use: Missing parentheses or unexpected syntax.")
 
-        # Check if a statement block follows (starting with a colon `:`)
         if lookahead() and lookahead().value == ':':
             match('PUNCTUATION', ':')
             func_node.add_child(parse_statement_block())
@@ -176,9 +176,10 @@ def parse_statement_block():
 
     while lookahead(): 
         token = lookahead()
-
+        print(token.value)
         #STATEMENT_BLOCK → FUNCTION STATEMENT_BLOCK
         if token.type == 'KEYWORD' and token.value in keywords:
+            print(token.value)
             function_node = parse_function()
             statement_block_node.add_child(function_node)
         
@@ -205,27 +206,30 @@ def parse_assignment(left_node):
     elif next_token.type == 'BOOL':
         next_token = ASTNode("BOOL", match('BOOL').value)
     else:
-        next_token = parse_expression(left_node)
-
+        next_token = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
+        next_token = parse_expression(next_token)
+    
     return AssignmentNode(left_node, next_token)
     
 
 def parse_expression(left_node):  
+    print(left_node.value)
 
-    if left_node.type == 'BOOL':  
-        left_node = ASTNode("BOOL", match('BOOL').value)
-    elif left_node.type == 'IDENTIFIER': 
-        left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
-    elif left_node.type == 'INT': 
-        left_node = ASTNode("INT", match('INT').value)
-        print("HERE3")
-    else: 
-        raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")
-    
+    #if left_node.type == 'BOOL':  
+       # left_node = ASTNode("BOOL", match('BOOL').value)
+    #if left_node.type == 'IDENTIFIER': 
+        #left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
+    #elif left_node.type == 'INT': 
+      #  left_node = ASTNode("INT", match('INT').value)
+      #  print("HERE3")
+    #else: 
+       # raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")''' 
     #operator token, could be equality_operator or operator (in operators)
     operator_token = lookahead()
-    
-    if operator_token and operator_token.type == 'OPERATOR' and operator_token.value in operators:
+    print(operator_token.value)
+    print(operator_token.type)
+    print(operator_token.value in operators)
+    if operator_token.type == 'OPERATOR' and operator_token.value in operators:
         match('OPERATOR').value
     else: 
         raise ParseError(f"Invalid EXPRESSION syntax: Expected an operator, got type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
@@ -248,25 +252,24 @@ def parse_expression(left_node):
 def parse_condition():
     
     left_token = lookahead() 
-
-    #CONDITION → ASSIGNMENT 
+   
     if left_token.type == 'IDENTIFIER':
-        left_token = ASTNode('IDENTIFIER', match('IDENTIFIER').value)
-
+        left_node = ASTNode('IDENTIFIER', match('IDENTIFIER').value)
         next_token = lookahead()
-        if next_token and next_token.type == 'ASSIGNMENT_OPERATOR':
-            return parse_assignment(left_token) 
+        print(next_token.value)
+         #CONDITION → ASSIGNMENT 
+        if next_token and next_token.value == assignment_operator:
+            return parse_assignment(left_node) 
         
     elif left_token.type == 'INT': 
         left_token = ASTNode("INT", match('INT').value)
     elif left_token.type == 'BOOL': 
         left_token = ASTNode("BOOL", match('BOOL').value)
-        return parse_expression(left_token)
+    return parse_expression(left_node)
 
     
     #CONDITION → EXPRESSION
 
-    return parse_expression(left_token)
     
 
 def parser():

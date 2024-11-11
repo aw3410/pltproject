@@ -1,3 +1,5 @@
+
+
 tokens = [
     token('KEYWORD', 'castSpell'),        
     token('IDENTIFIER', 'error'),          
