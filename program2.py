@@ -25,7 +25,7 @@ tokens = [
     token('IDENTIFIER', 'clock4'),
     token('PUNCTUATION', ')')
 ]
-parser()
+parser(tokens)
 
 #expected output 
 # FUNCTION (castSpell)

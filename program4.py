@@ -1,4 +1,5 @@
 
+from parser import parser, token
 
 tokens = [
     token('KEYWORD', 'castSpell'),        
@@ -9,6 +10,6 @@ tokens = [
     token('IDENTIFIER', 'a'),              
     token('OPERATOR', '+') 
 ]
-
+parser(tokens)
 # Expected Output: 
 # Parse Error: Invalid expression syntax: Expected an int, id, or bool

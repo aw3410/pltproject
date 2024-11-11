@@ -19,7 +19,7 @@ tokens = [
     token('KEYWORD', 'happilyEverAfter'),
     token('IDENTIFIER', 'villain')
 ]
-
+parser(tokens)
 # expected output: 
 # FUNCTION (castSpell)
 # ├──   IDENTIFIER (howmanyvillains)

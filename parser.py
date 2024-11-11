@@ -1,88 +1,9 @@
-
-
+#parser.py 
 class token:
     def __init__(self,type,value):
         self.type = type
         self.value = value
 
-#INPUT 1
-tokens = [ token('KEYWORD', 'castSpell'),
-    token('IDENTIFIER', 'princess'),
-    token('PUNCTUATION', '('),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('KEYWORD', 'paint'),
-    token('PUNCTUATION', '('),
-    token('STRING', 'hello princess'),
-    token('PUNCTUATION', ')') ]
-
-# #INPUT 2
-# tokens = [
-#     token('KEYWORD', 'castSpell'),        
-#     token('IDENTIFIER', 'repeat'),        
-#     token('PUNCTUATION', '('),             
-#     token('PUNCTUATION', ')'),            
-#     token('PUNCTUATION', ':'),            
-#     token('IDENTIFIER', 'clock'),          
-#     token('ASSIGNMENT_OPERATOR', '='),             
-#     token('INT', '12'),             
-#     token('KEYWORD', 'untilClockStrikes'), 
-#     token('PUNCTUATION', '('),             
-#     token('INT', '12'),  
-#     token('PUNCTUATION', ')'),            
-#     token('PUNCTUATION', ':'),             
-#     token('IDENTIFIER', 'clock2'),          
-#     token('ASSIGNMENT_OPERATOR', '='),             
-#     token('IDENTIFIER', 'clock3'),          
-#     token('OPERATOR', '-'),                
-#     token('INT', '1'),            
-#     token('KEYWORD', 'paint'),
-#     token('PUNCTUATION', '('),
-#     token('IDENTIFIER', 'clock4'),
-#     token('PUNCTUATION', ')')
-# ]
-
-#INPUT 3
-# tokens = [
-#    token('KEYWORD', 'castSpell'),       
-#    token('IDENTIFIER', 'helloWorld'),       
-#    token('PUNCTUATION', ':'),                      
-#    token('KEYWORD', 'paint'),
-#    token('PUNCTUATION', '('),
-#    token('STRING', 'Hello Kingdom'),
-#    token('PUNCTUATION', ')') ]
-
-#INPUT 4
-# tokens = [
-#     token('KEYWORD', 'castSpell'),        
-#     token('IDENTIFIER', 'error'),          
-#     token('PUNCTUATION', '('),             
-#     token('PUNCTUATION', ')'),             
-#     token('PUNCTUATION', ':'),             
-#     token('IDENTIFIER', 'a'),              
-#     token('OPERATOR', '+') 
-# ]
-
-#INPUT 5
-tokens = [
-    token('KEYWORD', 'castSpell'),
-    token('IDENTIFIER', 'howmanyvillains'),
-    token('PUNCTUATION', '('),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('KEYWORD', 'if'),
-    token('PUNCTUATION', '('),
-    token('IDENTIFIER', 'numberofprinces'),
-    token('OPERATOR', '>'),
-    token('INT', '5'),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('IDENTIFIER', 'numberofvillains'),
-    token('ASSIGNMENT_OPERATOR', '='),
-    token('INT', '0'),
-    token('KEYWORD', 'happilyEverAfter'),
-    token('IDENTIFIER', 'villain')
-]
 
 class ParseError(Exception):
     pass
@@ -143,26 +64,12 @@ class AssignmentNode(ASTNode):
         self.add_child(ASTNode('='))
         self.add_child(expression)
 
-# INPUT 1 
-# tokens = [ token('KEYWORD', 'castSpell'),
-#     token('IDENTIFIER', 'princess'),
-#     token('PUNCTUATION', '('),
-#     token('PUNCTUATION', ')'),
-#     token('PUNCTUATION', ':'),
-#     token('KEYWORD', 'paint'),
-#     token('PUNCTUATION', '('),
-#     token('STRING', 'hello princess'),
-#     token('PUNCTUATION', ')') ]
-
-
-
 
 keywords = ['castSpell', 'if', 'untilClockStrikes','paint','happilyEverAfter']
 equality_operator = ['is','is not']
 operators = [')', '(', '>=', '<=','>','<','-', '+', '*', '/']
 assignment_operator = '='
 
-token_index = 0
 
 def get_token():
     global token_index
@@ -349,11 +256,13 @@ def parse_condition():
     return parse_expression(left_node)
 
 
-def parser():
+def parser(input):
+    global token_index, tokens
+    tokens = input
+    token_index = 0
     try:
         ast = parse_function()
         print(ast)
     except ParseError as e:
         print("Parse Error:", e)
 
-parser()

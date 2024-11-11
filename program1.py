@@ -1,3 +1,6 @@
+
+from parser import parser, token
+
 tokens = [ token('KEYWORD', 'castSpell'),
     token('IDENTIFIER', 'princess'),
     token('PUNCTUATION', '('),
@@ -7,6 +10,8 @@ tokens = [ token('KEYWORD', 'castSpell'),
     token('PUNCTUATION', '('),
     token('STRING', 'hello princess'),
     token('PUNCTUATION', ')') ]
+
+parser(tokens)
 
 # expected output: 
 # FUNCTION (castSpell)
