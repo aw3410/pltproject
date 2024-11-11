@@ -2,13 +2,12 @@ from scanner import scan
 from parser import parser, token
 
 
-
+#scanner input
 input = "castSpell helloWorld: paint('Hello kingdom')"
 scanner_output = scan(input)
 parser(scanner_output)
 
-
-#expected scanner output
+#Expected scanner output
 
 '''output = ['<KEYWORD, castSpell>', 
  '<IDENTIFIER, helloWorld>', 
@@ -19,10 +18,5 @@ parser(scanner_output)
  '<PUNCTUATION, )>']'''
 
 
-<<<<<<< HEAD
-parser(output)
-=======
-
->>>>>>> a25ee5ed4819db62d2777d0bb01f520ab4ed7772
-#expected output: 
+#Expected parser output: 
 #Parse Error: Function declaration must have parentheses after the identifier.

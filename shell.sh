@@ -1,6 +1,5 @@
 #!/bin/bash 
-brew install
-brew install python
+
 python program1.py
 python program2.py
 python program3.py

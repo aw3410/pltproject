@@ -1,11 +1,13 @@
 from scanner import scan
 from parser import parser, token
 
+
+#scanner input
 input = "castSpell error(): a +"
 scanner_output = scan(input)
 parser(scanner_output)
 
-#expected scanner output
+#Expected scanner output
 '''output = ['<KEYWORD, castSpell>', 
  '<IDENTIFIER, error>', 
  '<PUNCTUATION, (>', 

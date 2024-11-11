@@ -1,7 +1,7 @@
 from parser import parser, token
 from scanner import scan
 
-
+#scanner input
 input = 'castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)'
 scanner_output = scan(input)
 parser(scanner_output) #pass scanner output to parser

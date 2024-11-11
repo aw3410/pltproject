@@ -45,7 +45,7 @@ Teammates: Annika Wang (aw3410) and Kira Ariyan (kna2121)
             ['>=', '<=','>','<','-', '+', '*', '/']
             OPERATOR(value = "+")
 
-        Assignment Operators 
+        Assignment Operator
             Assignment operator
             ['=']
             ASSIGNMENT_OPERATOR(value = "=")

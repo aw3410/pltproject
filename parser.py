@@ -1,6 +1,5 @@
 #parser.py 
 
-
 class token:
     def __init__(self,type,value):
         self.type = type
@@ -124,37 +123,34 @@ def parse_function():
                 else:
                     raise ParseError("Expected close parenthesis.")
             elif token.value == 'castSpell':
-                # Raise an error if parentheses are missing after identifier
+                # error if parentheses are missing after function declaration
                 raise ParseError("Function declaration must have parentheses after the identifier.")
 
-        # Check if there is an opening parenthesis following the keyword (alternative function format)
+        # check if there is an opening parenthesis following the keyword 
         elif lookahead() and lookahead().value == '(':
             match('PUNCTUATION', '(')
             if token.type == 'KEYWORD' and token.value == 'if':
-                    arg_node = parse_condition()  # Assuming parse_condition() exists for handling conditions
+                    arg_node = parse_condition()  
                     func_node.add_child(arg_node)
 
-            # Check if there’s something inside the parentheses
             # FUNCTION → ( FUNCTION )
             inner_token = lookahead()
             if inner_token.value != ')':
                 
-                # Handle different possible types inside parentheses
+                # handle different possible types inside parentheses
                 if inner_token.type == 'IDENTIFIER':
                     arg_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
                 elif inner_token.type == 'INT':
                     arg_node = ASTNode("INT", match('INT').value)
                 elif inner_token.type == 'STRING':
                     arg_node = ASTNode("STRING", match('STRING').value)
-                
     
-                # Add the argument as a child node
-                func_node.add_child(arg_node)
+                func_node.add_child(arg_node) #make child node
             
             match('PUNCTUATION', ')')
         
         else: 
-            raise ParseError("Invalid function use: Missing parentheses or unexpected syntax.")
+            raise ParseError("Error: Missing parentheses or unexpected syntax.")
 
         if lookahead() and lookahead().value == ':':
             match('PUNCTUATION', ':')
@@ -162,7 +158,6 @@ def parse_function():
 
         return func_node
 
-    # Handle cases where token is an id, int, string
     # FUNCTION → id  | int | string | id STATEMENT_BLOCK 
     elif token.type == 'IDENTIFIER':
         left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
@@ -176,7 +171,7 @@ def parse_function():
 
     
     else:
-        raise ParseError("Invalid FUNCTION syntax: Expected a function keyword.")
+        raise ParseError("Invalid function syntax: Expected a function keyword.")
     
 def parse_statement_block():
     statement_block_node = StatementBlockNode()
@@ -245,8 +240,6 @@ def parse_expression(left_node):
     return ExpressionNode(operator_token.value, left_node, right_node)
 
 def parse_condition():
-    
-
 
     left_token = lookahead() 
    

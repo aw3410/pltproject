@@ -1,3 +1,6 @@
+
+#scanner.py 
+
 def scan(input):
     current = ''
     state = 's0'
