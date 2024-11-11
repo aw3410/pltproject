@@ -69,6 +69,16 @@ equality_operator = ['is','is not']
 operators = ['>=', '<=','>','<','-', '+', '*', '/']
 assignment_operator = '='
 
+def createTokens(scan_output):
+    tokens = []
+    for output in scan_output:
+        t = output[1:-1]
+        type_value = t.split(',',1)
+        token_type= type_value[0].strip()
+        token_value = type_value[1].strip() 
+        tokens.append(token(token_type,token_value))
+    return tokens
+
 
 def get_token():
     global token_index
@@ -255,9 +265,9 @@ def parse_condition():
     return parse_expression(left_node)
 
 
-def parser(input):
+def parser(scan_output):
     global token_index, tokens
-    tokens = input
+    tokens = createTokens(scan_output)
     token_index = 0
     try:
         ast = parse_function()

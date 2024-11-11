@@ -5,16 +5,17 @@ from parser import parser, token
 # castSpell helloWorld:
 #     paint('Hello kingdom')
 
-
 #scanner output
-output = [
-   token('KEYWORD', 'castSpell'),       
-   token('IDENTIFIER', 'helloWorld'),       
-   token('PUNCTUATION', ':'),                      
-   token('KEYWORD', 'paint'),
-   token('PUNCTUATION', '('),
-   token('STRING', 'Hello Kingdom'),
-   token('PUNCTUATION', ')') ]
+
+output = ['<KEYWORD, castSpell>', 
+ '<IDENTIFIER, helloWorld>', 
+ '<PUNCTUATION, :>', 
+ '<KEYWORD, paint>', 
+ '<PUNCTUATION, (>', 
+ "<STRING, 'Hello kingdom'>", 
+ '<PUNCTUATION, )>']
+
+
 
 parser(output)
 #expected output: 

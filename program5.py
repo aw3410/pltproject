@@ -2,32 +2,33 @@
 from parser import parser, token
 #scanner input
 
-#castSpell howmanyvillains(): 
-	# if (numberofprinces > 5): 
-	# 	numberofvillains = 0
-	# 	happilyeverafter villain 
+'''castSpell howmanyvillains(): 
+    if (numberofprinces > 5): 
+	    numberofvillains = 0
+	 	happilyEverAfter villain '''
 
 
 # scanner output
-output = [
-    token('KEYWORD', 'castSpell'),
-    token('IDENTIFIER', 'howmanyvillains'),
-    token('PUNCTUATION', '('),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('KEYWORD', 'if'),
-    token('PUNCTUATION', '('),
-    token('IDENTIFIER', 'numberofprinces'),
-    token('OPERATOR', '>'),
-    token('INT', '5'),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('IDENTIFIER', 'numberofvillains'),
-    token('ASSIGNMENT_OPERATOR', '='),
-    token('INT', '0'),
-    token('KEYWORD', 'happilyEverAfter'),
-    token('IDENTIFIER', 'villain')
-]
+output = ['<KEYWORD, castSpell>', 
+          '<IDENTIFIER, howmanyvillains>', 
+          '<PUNCTUATION, (>', 
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<KEYWORD, if>', 
+          '<PUNCTUATION, (>', 
+          '<IDENTIFIER, numberofprinces>', 
+          '<OPERATOR, >>', 
+          '<INT, 5>', 
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<IDENTIFIER, numberofvillains>', 
+          '<ASSIGNMENT_OPERATOR, =>', 
+          '<INT, 0>', 
+          '<KEYWORD, happilyEverAfter>', 
+          '<IDENTIFIER, villain>']
+
+
+
 parser(output)
 # expected output: 
 # FUNCTION (castSpell)

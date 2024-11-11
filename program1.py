@@ -8,15 +8,16 @@ from parser import parser, token
 
 #scanner output
 
-output = [ token('KEYWORD', 'castSpell'),
-    token('IDENTIFIER', 'princess'),
-    token('PUNCTUATION', '('),
-    token('PUNCTUATION', ')'),
-    token('PUNCTUATION', ':'),
-    token('KEYWORD', 'paint'),
-    token('PUNCTUATION', '('),
-    token('STRING', 'hello princess'),
-    token('PUNCTUATION', ')') ]
+output = ['<KEYWORD, castSpell>', 
+ '<IDENTIFIER, princess>', 
+ '<PUNCTUATION, (>', 
+ '<PUNCTUATION, )>', 
+ '<PUNCTUATION, :>', 
+ '<KEYWORD, paint>',
+'<PUNCTUATION, (>', 
+'<STRING, "hello princess">', 
+'<PUNCTUATION, )>']
+
 
 parser(output)
 
@@ -25,4 +26,4 @@ parser(output)
 # ├──   IDENTIFIER (princess)
 # └──   STATEMENT_BLOCK
 #   └──     FUNCTION (paint)
-#     └──       STRING (hello princess)
+#     └──       STRING ("hello princess")

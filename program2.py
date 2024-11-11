@@ -11,30 +11,29 @@ from parser import parser, token
 #INPUT 2 
 #scanner output
 
-output = [
-    token('KEYWORD', 'castSpell'),        
-    token('IDENTIFIER', 'repeat'),        
-    token('PUNCTUATION', '('),             
-    token('PUNCTUATION', ')'),            
-    token('PUNCTUATION', ':'),            
-    token('IDENTIFIER', 'clock'),          
-    token('ASSIGNMENT_OPERATOR', '='),             
-    token('INT', '12'),             
-    token('KEYWORD', 'untilClockStrikes'), 
-    token('PUNCTUATION', '('),             
-    token('INT', '12'),  
-    token('PUNCTUATION', ')'),            
-    token('PUNCTUATION', ':'),             
-    token('IDENTIFIER', 'clock2'),          
-    token('ASSIGNMENT_OPERATOR', '='),             
-    token('IDENTIFIER', 'clock3'),          
-    token('OPERATOR', '-'),                
-    token('INT', '1'),            
-    token('KEYWORD', 'paint'),
-    token('PUNCTUATION', '('),
-    token('IDENTIFIER', 'clock4'),
-    token('PUNCTUATION', ')')
-]
+output = ['<KEYWORD, castSpell>', 
+          '<IDENTIFIER, repeat>', 
+          '<PUNCTUATION, (>', 
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<IDENTIFIER, clock>', 
+          '<ASSIGNMENT_OPERATOR, =>', 
+          '<INT, 12>', 
+          '<KEYWORD, untilClockStrikes>', 
+          '<PUNCTUATION, (>',
+          '<INT, 12>', 
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<IDENTIFIER, clock>', 
+          '<ASSIGNMENT_OPERATOR, =>', 
+          '<IDENTIFIER, clock>', 
+          '<OPERATOR, ->', 
+          '<INT, 1>', 
+          '<KEYWORD, paint>', 
+          '<PUNCTUATION, (>', 
+          '<IDENTIFIER, clock>', 
+          '<PUNCTUATION, )>']
+
 parser(output)
 
 #expected output 
@@ -49,12 +48,12 @@ parser(output)
 #     ├──       INT (12)
 #     └──       STATEMENT_BLOCK
 #       ├──         ASSIGNMENT
-#         ├──           IDENTIFIER (clock2)
+#         ├──           IDENTIFIER (clock)
 #         ├──           =
 #         └──           EXPRESSION
-#           ├──             IDENTIFIER (clock3)
+#           ├──             IDENTIFIER (clock)
 #           ├──             -
 #           └──             INT (1)
 #       └──         FUNCTION (paint)
-#         └──           IDENTIFIER (clock4)
+#         └──           IDENTIFIER (clock)
 
