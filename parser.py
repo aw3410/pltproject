@@ -4,7 +4,15 @@ class token:
         self.type = type
         self.value = value
 
-
+tokens = [
+    token('KEYWORD', 'castSpell'),        
+    token('IDENTIFIER', 'error'),          
+    token('PUNCTUATION', '('),             
+    token('PUNCTUATION', ')'),             
+    token('PUNCTUATION', ':'),             
+    token('IDENTIFIER', 'a'),              
+    token('OPERATOR', '+') 
+]
 
 class ParseError(Exception):
     pass
@@ -107,7 +115,6 @@ def match(expected_type, expected_value=None):
 
 def parse_function():
     token = lookahead()
-    print(token.value)
     
     if token.type == 'KEYWORD' and token.value in keywords:
         func_keyword = match('KEYWORD', token.value)
@@ -176,7 +183,6 @@ def parse_statement_block():
 
     while lookahead(): 
         token = lookahead()
-        print(token.value)
         #STATEMENT_BLOCK → FUNCTION STATEMENT_BLOCK
         if token.type == 'KEYWORD' and token.value in keywords:
             print(token.value)
@@ -189,7 +195,6 @@ def parse_statement_block():
             statement_block_node.add_child(condition_node)
         
         else: 
-
             break
 
     return statement_block_node
@@ -213,39 +218,26 @@ def parse_assignment(left_node):
     
 
 def parse_expression(left_node):  
-    print(left_node.value)
-
-    #if left_node.type == 'BOOL':  
-       # left_node = ASTNode("BOOL", match('BOOL').value)
-    #if left_node.type == 'IDENTIFIER': 
-        #left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
-    #elif left_node.type == 'INT': 
-      #  left_node = ASTNode("INT", match('INT').value)
-      #  print("HERE3")
-    #else: 
-       # raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")''' 
-    #operator token, could be equality_operator or operator (in operators)
+    
     operator_token = lookahead()
-    print(operator_token.value)
-    print(operator_token.type)
-    print(operator_token.value in operators)
+  
     if operator_token.type == 'OPERATOR' and operator_token.value in operators:
         match('OPERATOR').value
     else: 
-        raise ParseError(f"Invalid EXPRESSION syntax: Expected an operator, got type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
-
+        raise ParseError(f"Invalid expression syntax: Expected an operator, got type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
 
     #right token, could be int, id, boolean
     right_node = lookahead()
 
-    if right_node.type == 'BOOL':  
+    if not right_node:
+        raise ParseError("Invalid expression syntax: Expected an int, id, or bool")
+    
+    elif right_node.type == 'BOOL':  
         right_node = ASTNode("BOOL", match('BOOL').value)
     elif right_node.type == 'IDENTIFIER': 
         right_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
     elif right_node.type == 'INT': 
         right_node = ASTNode("INT", match('INT').value)
-    else: 
-        raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")
 
     return ExpressionNode(operator_token.value, left_node, right_node)
 
@@ -256,21 +248,16 @@ def parse_condition():
     if left_token.type == 'IDENTIFIER':
         left_node = ASTNode('IDENTIFIER', match('IDENTIFIER').value)
         next_token = lookahead()
-        print(next_token.value)
          #CONDITION → ASSIGNMENT 
         if next_token and next_token.value == assignment_operator:
             return parse_assignment(left_node) 
-        
+      #CONDITION → EXPRESSION  
     elif left_token.type == 'INT': 
         left_token = ASTNode("INT", match('INT').value)
     elif left_token.type == 'BOOL': 
         left_token = ASTNode("BOOL", match('BOOL').value)
     return parse_expression(left_node)
 
-    
-    #CONDITION → EXPRESSION
-
-    
 
 def parser():
     try:
