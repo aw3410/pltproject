@@ -1,22 +1,19 @@
-
+from scanner import scan
 from parser import parser, token
-#scanner input
 
-# castSpell error(): 
-# 	a +
+input = "castSpell error(): a +"
+scanner_output = scan(input)
+parser(scanner_output)
 
-
-#scanner output
-
-output = ['<KEYWORD, castSpell>', 
+#expected scanner output
+'''output = ['<KEYWORD, castSpell>', 
  '<IDENTIFIER, error>', 
  '<PUNCTUATION, (>', 
  '<PUNCTUATION, )>', 
  '<PUNCTUATION, :>', 
  '<IDENTIFIER, a>', 
- '<OPERATOR, +>']
+ '<OPERATOR, +>']'''
 
 
-parser(output)
-# Expected Output: 
+# Expected parser output: 
 # Parse Error: Invalid expression syntax: Expected an int, id, or bool

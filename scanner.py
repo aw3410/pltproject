@@ -103,7 +103,6 @@ def scan(input):
         state = 's_err'
 
     if state != 's_err':
-        print(tokens)
         return tokens
     else:
         return str(errormessage)
