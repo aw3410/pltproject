@@ -9,3 +9,6 @@ tokens = [
     token('IDENTIFIER', 'a'),              
     token('OPERATOR', '+') 
 ]
+
+# Expected Output: 
+# Parse Error: Invalid expression syntax: Expected an int, id, or bool

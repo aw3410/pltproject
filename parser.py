@@ -5,15 +5,27 @@ class token:
         self.type = type
         self.value = value
 
+#INPUT 4
+# tokens = [
+#     token('KEYWORD', 'castSpell'),        
+#     token('IDENTIFIER', 'error'),          
+#     token('PUNCTUATION', '('),             
+#     token('PUNCTUATION', ')'),             
+#     token('PUNCTUATION', ':'),             
+#     token('IDENTIFIER', 'a'),              
+#     token('OPERATOR', '+') 
+# ]
+
+#INPUT 3
 tokens = [
-    token('KEYWORD', 'castSpell'),        
-    token('IDENTIFIER', 'error'),          
-    token('PUNCTUATION', '('),             
-    token('PUNCTUATION', ')'),             
-    token('PUNCTUATION', ':'),             
-    token('IDENTIFIER', 'a'),              
-    token('OPERATOR', '+') 
-]
+   token('KEYWORD', 'castSpell'),       
+   token('IDENTIFIER', 'helloWorld'),       
+   token('PUNCTUATION', ':'),                      
+   token('KEYWORD', 'paint'),
+   token('PUNCTUATION', '('),
+   token('STRING', 'Hello Kingdom'),
+   token('PUNCTUATION', ')') ]
+
 
 class ParseError(Exception):
     pass
