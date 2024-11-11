@@ -1,11 +1,11 @@
 
 from scanner import scan
 from parser import parser, token
-# scanner input 
 
+# scanner input 
 input = "castSpell princess(): paint('hello princess')"
-scanner_output = scan(input)
-parser(scanner_output)
+scanner_output = scan(input) 
+parser(scanner_output) #pass scanner output to parser 
 
 #Expected scanner output:
 '''['<KEYWORD, castSpell>', 

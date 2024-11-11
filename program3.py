@@ -16,7 +16,6 @@ output = ['<KEYWORD, castSpell>',
  '<PUNCTUATION, )>']
 
 
-
 parser(output)
 #expected output: 
 #Parse Error: Function declaration must have parentheses after the identifier.
