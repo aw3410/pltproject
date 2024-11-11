@@ -1,5 +1,6 @@
 
 from parser import parser, token
+#scanner input
 
 #castSpell howmanyvillains(): 
 	# if (numberofprinces > 5): 

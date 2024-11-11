@@ -1,5 +1,6 @@
 
 from parser import parser, token
+#scanner input
 
 # castSpell error(): 
 # 	a +

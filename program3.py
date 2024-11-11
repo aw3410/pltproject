@@ -1,5 +1,10 @@
 
 from parser import parser, token
+#scanner input 
+
+# castSpell helloWorld:
+#     paint('Hello kingdom')
+
 
 #scanner output
 output = [
