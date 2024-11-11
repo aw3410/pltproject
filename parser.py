@@ -99,6 +99,17 @@ tokens = [
     token('PUNCTUATION', ')')
 ]
 
+#INPUT 4: 
+tokens = [
+    token('KEYWORD', 'castSpell'),        
+    token('IDENTIFIER', 'error'),          
+    token('PUNCTUATION', '('),             
+    token('PUNCTUATION', ')'),             
+    token('PUNCTUATION', ':'),             
+    token('IDENTIFIER', 'a'),              
+    token('OPERATOR', '+') 
+]
+
 
 keywords = ['castSpell', 'if', 'untilClockStrikes','paint']
 equality_operator = ['is','is not']
@@ -187,7 +198,8 @@ def parse_function():
     
     # Handle cases where token is an id, int, string, or a FUNCTION
     elif token.type == 'IDENTIFIER':
-        return parse_assignment()  
+        left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
+        return parse_assignment(left_node)  
     
     elif token.type in {'INT', 'STRING', 'BOOL'}:
         return ASTNode("LITERAL", match(token.type).value)
@@ -219,7 +231,7 @@ def parse_statement_block():
     return statement_block_node
 
 def parse_assignment(left_node):
-
+    match('ASSIGNMENT_OPERATOR','=')
 
     next_token = lookahead()
     

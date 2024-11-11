@@ -1,1 +1,24 @@
-
+tokens = [
+    token('KEYWORD', 'castSpell'),        
+    token('IDENTIFIER', 'repeat'),        
+    token('PUNCTUATION', '('),             
+    token('PUNCTUATION', ')'),            
+    token('PUNCTUATION', ':'),            
+    token('IDENTIFIER', 'clock'),          
+    token('ASSIGNMENT_OPERATOR', '='),             
+    token('INT', '12'),             
+    token('KEYWORD', 'untilClockStrikes'), 
+    token('PUNCTUATION', '('),             
+    token('INT', '12'),  
+    token('PUNCTUATION', ')'),            
+    token('PUNCTUATION', ':'),             
+    token('IDENTIFIER', 'clock2'),          
+    token('ASSIGNMENT_OPERATOR', '='),             
+    token('IDENTIFIER', 'clock3'),          
+    token('OPERATOR', '-'),                
+    token('INT', '1'),            
+    token('KEYWORD', 'paint'),
+    token('PUNCTUATION', '('),
+    token('IDENTIFIER', 'clock4'),
+    token('PUNCTUATION', ')')
+]
