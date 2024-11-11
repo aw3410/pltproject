@@ -113,9 +113,14 @@ def match(expected_type, expected_value=None):
         return get_token()
     raise ParseError(f"Expected {expected_type} with value {expected_value}, but got {token.type} with value {token.value if token else 'None'}.")
 
+# FUNCTION → ( FUNCTION ) | CONDITION | STATEMENT_BLOCK |
+# id  | int | string | keyword | keyword FUNCTION | 
+# id STATEMENT_BLOCK | keyword id(): STATEMENT_BLOCK 
+
 def parse_function():
     token = lookahead()
     
+    # FUNCTION →  keyword | keyword FUNCTION 
     if token.type == 'KEYWORD' and token.value in keywords:
         func_keyword = match('KEYWORD', token.value)
         func_node = FunctionNode(func_keyword.value)
@@ -142,9 +147,11 @@ def parse_function():
                     func_node.add_child(arg_node)
 
             # Check if there’s something inside the parentheses
+            # FUNCTION → ( FUNCTION )
             inner_token = lookahead()
             if inner_token.value != ')':
-                # Handle different possible types inside parentheses, e.g., FUNCTION, id, int, string, CONDITION
+                
+                # Handle different possible types inside parentheses
                 if inner_token.type == 'IDENTIFIER':
                     arg_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
                 elif inner_token.type == 'INT':
@@ -167,13 +174,18 @@ def parse_function():
 
         return func_node
 
-    # Handle cases where token is an id, int, string, or a FUNCTION
+    # Handle cases where token is an id, int, string
+    # FUNCTION → id  | int | string | id STATEMENT_BLOCK 
     elif token.type == 'IDENTIFIER':
         left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
         return parse_assignment(left_node)  
     
     elif token.type in {'INT', 'STRING', 'BOOL'}:
         return ASTNode("LITERAL", match(token.type).value)
+    
+    elif token.type == '(': 
+        arg_node = parse_function()
+
     
     else:
         raise ParseError("Invalid FUNCTION syntax: Expected a function keyword.")
@@ -199,6 +211,8 @@ def parse_statement_block():
 
     return statement_block_node
 
+# ASSIGNMENT → id = int | id = string | id = bool | id = EXPRESSION
+
 def parse_assignment(left_node):
     match('ASSIGNMENT_OPERATOR','=')
 
@@ -216,7 +230,9 @@ def parse_assignment(left_node):
     
     return AssignmentNode(left_node, next_token)
     
-
+# EXPRESSION →  int operator int | id operator id | id operator int | 
+#                 id equality_operator bool | id equality_operator int | 
+#                   bool 
 def parse_expression(left_node):  
     
     operator_token = lookahead()
@@ -243,15 +259,20 @@ def parse_expression(left_node):
 
 def parse_condition():
     
+
+
     left_token = lookahead() 
    
     if left_token.type == 'IDENTIFIER':
         left_node = ASTNode('IDENTIFIER', match('IDENTIFIER').value)
         next_token = lookahead()
          #CONDITION → ASSIGNMENT 
+         # ASSIGNMENT always starts with id = 
         if next_token and next_token.value == assignment_operator:
             return parse_assignment(left_node) 
+        
       #CONDITION → EXPRESSION  
+      # EXPRESSION can start with id, int, bool 
     elif left_token.type == 'INT': 
         left_token = ASTNode("INT", match('INT').value)
     elif left_token.type == 'BOOL': 
