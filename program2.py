@@ -7,7 +7,6 @@ scanner_output = scan(input)
 parser(scanner_output)
 
 #Expected scanner output:
-
 '''output = ['<KEYWORD, castSpell>', 
           '<IDENTIFIER, repeat>', 
           '<PUNCTUATION, (>', 
