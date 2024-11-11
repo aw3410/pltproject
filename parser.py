@@ -4,6 +4,10 @@ class token:
         self.type = type
         self.value = value
 
+
+
+
+
 class ParseError(Exception):
     pass
 
@@ -73,42 +77,7 @@ class AssignmentNode(ASTNode):
 #     token('STRING', 'hello princess'),
 #     token('PUNCTUATION', ')') ]
 
-#INPUT 2
-tokens = [
-    token('KEYWORD', 'castSpell'),        
-    token('IDENTIFIER', 'repeat'),        
-    token('PUNCTUATION', '('),             
-    token('PUNCTUATION', ')'),            
-    token('PUNCTUATION', ':'),            
-    token('IDENTIFIER', 'clock'),          
-    token('ASSIGNMENT_OPERATOR', '='),             
-    token('INT', '12'),             
-    token('KEYWORD', 'untilClockStrikes'), 
-    token('PUNCTUATION', '('),             
-    token('INT', '12'),  
-    token('PUNCTUATION', ')'),            
-    token('PUNCTUATION', ':'),             
-    token('IDENTIFIER', 'clock2'),          
-    token('ASSIGNMENT_OPERATOR', '='),             
-    token('IDENTIFIER', 'clock3'),          
-    token('OPERATOR', '-'),                
-    token('INT', '1'),            
-    token('KEYWORD', 'paint'),
-    token('PUNCTUATION', '('),
-    token('IDENTIFIER', 'clock4'),
-    token('PUNCTUATION', ')')
-]
 
-#INPUT 4: 
-tokens = [
-    token('KEYWORD', 'castSpell'),        
-    token('IDENTIFIER', 'error'),          
-    token('PUNCTUATION', '('),             
-    token('PUNCTUATION', ')'),             
-    token('PUNCTUATION', ':'),             
-    token('IDENTIFIER', 'a'),              
-    token('OPERATOR', '+') 
-]
 
 
 keywords = ['castSpell', 'if', 'untilClockStrikes','paint']
@@ -141,25 +110,25 @@ def parse_function():
     token = lookahead()
     
     if token.type == 'KEYWORD' and token.value in keywords:
-        # Consume the keyword (it could be castSpell or another function keyword)
         func_keyword = match('KEYWORD', token.value)
         func_node = FunctionNode(func_keyword.value)
-        
 
-        # Check if there is an id after keyeword 
         if lookahead() and lookahead().type == 'IDENTIFIER': 
             arg_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
             func_node.add_child(arg_node)
 
-            #check if it's ()
+            
             if lookahead() and lookahead().value == '(':
                 match('PUNCTUATION', '(')
                 if lookahead() and lookahead().value == ')':
                     match('PUNCTUATION', ')')  
                 else:
-                    raise ParseError("Expected empty parentheses after identifier.")
+                    raise ParseError("Expected close parenthesis.")
+            else:
+                # Raise an error if parentheses are missing after identifier
+                raise ParseError("Function declaration must have parentheses after the identifier.")
 
-        # Check if there is an opening parenthesis following the keyword
+        # Check if there is an opening parenthesis following the keyword (alternative function format)
         elif lookahead() and lookahead().value == '(':
             match('PUNCTUATION', '(')
                 
@@ -176,18 +145,13 @@ def parse_function():
                 elif inner_token.type == 'KEYWORD' and inner_token.value == 'if':
                     arg_node = parse_condition()  # Assuming parse_condition() exists for handling conditions
     
-                
                 # Add the argument as a child node
                 func_node.add_child(arg_node)
 
             match('PUNCTUATION', ')')
+        
         else: 
-            func_node = FunctionNode(func_keyword.value)  # No parentheses, just a keyword function
-            
-            # Optionally match an identifier after the function keyword or parentheses
-            if lookahead() and lookahead().type == 'IDENTIFIER':
-                identifier_token = match('IDENTIFIER')
-                func_node.add_child(ASTNode("IDENTIFIER", identifier_token.value))
+            raise ParseError("Invalid function use: Missing parentheses or unexpected syntax.")
 
         # Check if a statement block follows (starting with a colon `:`)
         if lookahead() and lookahead().value == ':':
@@ -195,7 +159,7 @@ def parse_function():
             func_node.add_child(parse_statement_block())
 
         return func_node
-    
+
     # Handle cases where token is an id, int, string, or a FUNCTION
     elif token.type == 'IDENTIFIER':
         left_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
@@ -206,8 +170,7 @@ def parse_function():
     
     else:
         raise ParseError("Invalid FUNCTION syntax: Expected a function keyword.")
-
-
+    
 def parse_statement_block():
     statement_block_node = StatementBlockNode()
 

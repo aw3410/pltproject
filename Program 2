@@ -1,3 +1,6 @@
+from parser import parser, token
+
+#INPUT 2
 tokens = [
     token('KEYWORD', 'castSpell'),        
     token('IDENTIFIER', 'repeat'),        
@@ -22,3 +25,4 @@ tokens = [
     token('IDENTIFIER', 'clock4'),
     token('PUNCTUATION', ')')
 ]
+parser()
