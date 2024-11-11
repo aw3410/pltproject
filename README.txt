@@ -59,3 +59,5 @@ Teammates: Annika Wang (aw3410) and Kira Ariyan (kna2121)
             equality operators 
             ['is', 'is not']
             EQUALITY_OPERATOR(value = 'is')
+
+6. Video: https://youtu.be/Gcx1GJtyqds

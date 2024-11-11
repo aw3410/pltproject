@@ -1,6 +1,6 @@
 
 from scanner import scan
-from parser import parser, token
+from parser import parser
 
 # scanner input 
 input = "castSpell princess(): paint('hello princess')"

@@ -1,5 +1,5 @@
 
-from parser import parser, token
+from parser import parser
 from scanner import scan
 
 #scanner input
