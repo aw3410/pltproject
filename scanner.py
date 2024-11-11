@@ -104,7 +104,7 @@ def scan(input):
 
     if state != 's_err':
         print(tokens)
+        return tokens
     else:
-        print(str(errormessage))
+        return str(errormessage)
 
-scan('castSpell howmanyvillains(): if (numberofprinces > 5): numberofvillains = 0 happilyeverafter villain')

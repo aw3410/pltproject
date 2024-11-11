@@ -1,29 +1,27 @@
 
+from scanner import scan
 from parser import parser, token
 # scanner input 
 
-# castSpell princess():
-#   paint('hello princess)
+input = "castSpell princess(): paint('hello princess')"
+scanner_output = scan(input)
+parser(scanner_output)
 
-
-#scanner output
-
-output = ['<KEYWORD, castSpell>', 
- '<IDENTIFIER, princess>', 
- '<PUNCTUATION, (>', 
- '<PUNCTUATION, )>', 
- '<PUNCTUATION, :>', 
- '<KEYWORD, paint>',
+#Expected scanner output:
+'''['<KEYWORD, castSpell>', 
+'<IDENTIFIER, princess>', 
 '<PUNCTUATION, (>', 
-'<STRING, "hello princess">', 
-'<PUNCTUATION, )>']
+'<PUNCTUATION, )>', 
+'<PUNCTUATION, :>', 
+'<KEYWORD, paint>', 
+'<PUNCTUATION, (>', 
+"<STRING, 'hello princess'>", 
+'<PUNCTUATION, )>'] '''
 
 
-parser(output)
-
-# expected output: 
-# FUNCTION (castSpell)
-# ├──   IDENTIFIER (princess)
-# └──   STATEMENT_BLOCK
-#   └──     FUNCTION (paint)
-#     └──       STRING ("hello princess")
+#Expected parser output: 
+'''FUNCTION (castSpell)
+ ├──   IDENTIFIER (princess)
+ └──   STATEMENT_BLOCK
+   └──     FUNCTION (paint)
+     └──       STRING ('hello princess') '''

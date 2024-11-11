@@ -1,17 +1,14 @@
 from parser import parser, token
+from scanner import scan
 
-# scanner input
 
-#castSpell repeat():
-#   clock = 12
-#   untilClockStrikes (12):
-# 	    clock = clock - 1
-# 	    paint(clock)
+input = 'castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)'
+scanner_output = scan(input)
+parser(scanner_output)
 
-#INPUT 2 
-#scanner output
+#Expected scanner output:
 
-output = ['<KEYWORD, castSpell>', 
+'''output = ['<KEYWORD, castSpell>', 
           '<IDENTIFIER, repeat>', 
           '<PUNCTUATION, (>', 
           '<PUNCTUATION, )>', 
@@ -32,28 +29,27 @@ output = ['<KEYWORD, castSpell>',
           '<KEYWORD, paint>', 
           '<PUNCTUATION, (>', 
           '<IDENTIFIER, clock>', 
-          '<PUNCTUATION, )>']
+          '<PUNCTUATION, )>'] '''
 
-parser(output)
 
-#expected output 
-# FUNCTION (castSpell)
-# ├──   IDENTIFIER (repeat)
-# └──   STATEMENT_BLOCK
-#   ├──     ASSIGNMENT
-#     ├──       IDENTIFIER (clock)
-#     ├──       =
-#     └──       INT (12)
-#   └──     FUNCTION (untilClockStrikes)
-#     ├──       INT (12)
-#     └──       STATEMENT_BLOCK
-#       ├──         ASSIGNMENT
-#         ├──           IDENTIFIER (clock)
-#         ├──           =
-#         └──           EXPRESSION
-#           ├──             IDENTIFIER (clock)
-#           ├──             -
-#           └──             INT (1)
-#       └──         FUNCTION (paint)
-#         └──           IDENTIFIER (clock)
+#Expected parser output 
+''' FUNCTION (castSpell)
+ ├──   IDENTIFIER (repeat)
+ └──   STATEMENT_BLOCK
+   ├──     ASSIGNMENT
+     ├──       IDENTIFIER (clock)
+     ├──       =
+     └──       INT (12)
+   └──     FUNCTION (untilClockStrikes)
+     ├──       INT (12)
+     └──       STATEMENT_BLOCK
+       ├──         ASSIGNMENT
+         ├──           IDENTIFIER (clock)
+         ├──           =
+         └──           EXPRESSION
+           ├──             IDENTIFIER (clock)
+           ├──             -
+           └──             INT (1)
+       └──         FUNCTION (paint)
+         └──           IDENTIFIER (clock) '''
 
