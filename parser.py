@@ -40,11 +40,14 @@ class StatementBlockNode(ASTNode):
         super().__init__("STATEMENT_BLOCK")
 
 class ConditionNode(ASTNode):
-    def __init__(self,operator,left,right):
+    def __init__(self, left, operator=None, right=None, is_equality=False):
         super().__init__("CONDITION")
         self.add_child(left)
-        self.add_child(ASTNode("OPERATOR", operator))
-        self.add_child(right)
+        if operator:
+            operator_type = "EQUALITY_OPERATOR" if is_equality else "OPERATOR"
+            self.add_child(ASTNode(operator_type, operator))
+        if right:
+            self.add_child(right)
 
 class ExpressionNode(ASTNode):
     def __init__(self, operator, left, right):
@@ -59,21 +62,48 @@ class AssignmentNode(ASTNode):
         self.add_child(variable)
         self.add_child(expression)
 
+# INPUT 1 
+# tokens = [ token('KEYWORD', 'castSpell'),
+#     token('IDENTIFIER', 'princess'),
+#     token('PUNCTUATION', '('),
+#     token('PUNCTUATION', ')'),
+#     token('PUNCTUATION', ':'),
+#     token('KEYWORD', 'paint'),
+#     token('PUNCTUATION', '('),
+#     token('STRING', 'hello princess'),
+#     token('PUNCTUATION', ')') ]
 
-tokens = [ token('KEYWORD', 'castSpell'),
-    token('PUNCTUATION', '('),
-    token('PUNCTUATION', ')'),
-    token('IDENTIFIER', 'princess'),
-    token('PUNCTUATION', ':'),
+#INPUT 2
+tokens = [
+    token('KEYWORD', 'castSpell'),        
+    token('IDENTIFIER', 'repeat'),        
+    token('PUNCTUATION', '('),             
+    token('PUNCTUATION', ')'),            
+    token('PUNCTUATION', ':'),            
+    token('IDENTIFIER', 'clock'),          
+    token('ASSIGNMENT_OPERATOR', '='),             
+    token('INT', '12'),             
+    token('KEYWORD', 'untilClockStrikes'), 
+    token('PUNCTUATION', '('),             
+    token('INT', '12'),  
+    token('PUNCTUATION', ')'),            
+    token('PUNCTUATION', ':'),             
+    token('IDENTIFIER', 'clock2'),          
+    token('ASSIGNMENT_OPERATOR', '='),             
+    token('IDENTIFIER', 'clock3'),          
+    token('OPERATOR', '-'),                
+    token('INT', '1'),            
     token('KEYWORD', 'paint'),
     token('PUNCTUATION', '('),
-    token('STRING', 'hello princess'),
-    token('PUNCTUATION', ')') ]
+    token('IDENTIFIER', 'clock4'),
+    token('PUNCTUATION', ')')
+]
 
 
-keywords = ['Paint', 'castSpell', 'if', 'untilClockStrikes','paint']
+keywords = ['castSpell', 'if', 'untilClockStrikes','paint']
 equality_operator = ['is','is not']
-operators = [')', '(', ')=', '(=', '-', '+', '*', '/']
+operators = [')', '(', '>=', '<=', '-', '+', '*', '/']
+assignment_operator = ['=']
 
 token_index = 0
 
@@ -102,11 +132,26 @@ def parse_function():
     if token.type == 'KEYWORD' and token.value in keywords:
         # Consume the keyword (it could be castSpell or another function keyword)
         func_keyword = match('KEYWORD', token.value)
+        func_node = FunctionNode(func_keyword.value)
         
+
+        # Check if there is an id after keyeword 
+        if lookahead() and lookahead().type == 'IDENTIFIER': 
+            arg_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
+            func_node.add_child(arg_node)
+
+            #check if it's ()
+            if lookahead() and lookahead().value == '(':
+                match('PUNCTUATION', '(')
+                if lookahead() and lookahead().value == ')':
+                    match('PUNCTUATION', ')')  
+                else:
+                    raise ParseError("Expected empty parentheses after identifier.")
+
         # Check if there is an opening parenthesis following the keyword
-        if lookahead() and lookahead().value == '(':
+        elif lookahead() and lookahead().value == '(':
             match('PUNCTUATION', '(')
-            
+                
             # Check if there’s something inside the parentheses
             inner_token = lookahead()
             if inner_token.value != ')':
@@ -119,22 +164,19 @@ def parse_function():
                     arg_node = ASTNode("STRING", match('STRING').value)
                 elif inner_token.type == 'KEYWORD' and inner_token.value == 'if':
                     arg_node = parse_condition()  # Assuming parse_condition() exists for handling conditions
-                
+    
                 
                 # Add the argument as a child node
-                func_node = FunctionNode(func_keyword.value)
                 func_node.add_child(arg_node)
-            else:
-                func_node = FunctionNode(func_keyword.value)  # Empty parentheses
-            
+
             match('PUNCTUATION', ')')
-        else:
+        else: 
             func_node = FunctionNode(func_keyword.value)  # No parentheses, just a keyword function
-        
-        # Optionally match an identifier after the function keyword or parentheses
-        if lookahead() and lookahead().type == 'IDENTIFIER':
-            identifier_token = match('IDENTIFIER')
-            func_node.add_child(ASTNode("IDENTIFIER", identifier_token.value))
+            
+            # Optionally match an identifier after the function keyword or parentheses
+            if lookahead() and lookahead().type == 'IDENTIFIER':
+                identifier_token = match('IDENTIFIER')
+                func_node.add_child(ASTNode("IDENTIFIER", identifier_token.value))
 
         # Check if a statement block follows (starting with a colon `:`)
         if lookahead() and lookahead().value == ':':
@@ -142,62 +184,105 @@ def parse_function():
             func_node.add_child(parse_statement_block())
 
         return func_node
+    
+    # Handle cases where token is an id, int, string, or a FUNCTION
+    elif token.type == 'IDENTIFIER':
+        return parse_assignment()  
+    
+    elif token.type in {'INT', 'STRING', 'BOOL'}:
+        return ASTNode("LITERAL", match(token.type).value)
+    
     else:
         raise ParseError("Invalid FUNCTION syntax: Expected a function keyword.")
 
 
 def parse_statement_block():
     statement_block_node = StatementBlockNode()
-    token = lookahead()
-    if token.type == 'KEYWORD' and token.value in keywords:
-        statement_block_node.add_child(parse_function()) 
-    elif token.type == 'IDENTIFIER':
-        statement_block_node.add_child(parse_assignment())
+
+    while lookahead(): 
+        token = lookahead()
+
+        #STATEMENT_BLOCK → FUNCTION STATEMENT_BLOCK
+        if token.type == 'KEYWORD' and token.value in keywords:
+            function_node = parse_function()
+            statement_block_node.add_child(function_node)
+        
+        #STATEMENT_BLOCK → CONDITION STATEMENT_BLOCK
+        elif token.type in {'IDENTIFIER', 'INT', 'BOOL'}:
+            condition_node = parse_condition()
+            statement_block_node.add_child(condition_node)
+        
+        else: 
+
+            break
 
     return statement_block_node
 
-def parse_assignment():
-    id = match('IDENTIFIER')
-    match('PUNCTUATION','=')
-    ex_node = parse_expression()
+def parse_assignment(left_node):
+    match('ASSIGNMENT_OPERATOR','=')
 
-    variable_node = ASTNode("IDENTIFIER", id.value)
-    return AssignmentNode(variable_node, ex_node)
+    next_token = lookahead()
+    
+    if next_token.type == 'INT':
+        next_token = ASTNode("INT", match('INT').value)
+    elif next_token.type == 'STRING':
+        next_token = ASTNode("STRING", match('STRING').value)
+    elif next_token.type == 'BOOL':
+        next_token = ASTNode("BOOL", match('BOOL').value)
+    else:
+        next_token = parse_expression(left_node)
 
-def parse_expression():
-    left_token = match('IDENTIFIER')
-    operator_token = match('PUNCTUATION') 
-    right_token = match('IDENTIFIER') 
+    return AssignmentNode(left_node, next_token)
+    
 
-    left_node = ASTNode("IDENTIFIER", left_token.value)
-    right_node = ASTNode("IDENTIFIER", right_token.value)
+def parse_expression(left_node):  
+    print("DEBUG: Entering parse_expression")  
+
+    #operator token, could be equality_operator or operator (in operators)
+    operator_token = lookahead()
+    print(f"DEBUG: Operator token -> type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
+
+    if operator_token and operator_token.type == 'OPERATOR' and operator_token.value in operators:
+        match('OPERATOR').value
+
+
+    #right token, could be int, id, boolean
+    right_node = lookahead()
+    print(f"DEBUG: Right token -> type: {right_node.type}, value: {right_node.value}")
+
+    print("HERE2")
+    if right_node.type == 'BOOL':  
+        right_node = ASTNode("BOOL", right_node.value)
+    elif right_node.type == 'IDENTIFIER': 
+        right_node = ASTNode("IDENTIFIER", right_node.value)
+    elif right_node.type == 'INT': 
+        right_node = ASTNode("INT", right_node.value)
+        print("HERE3")
+    else: 
+        raise ParseError("Invalid EXPRESSION syntax: Expected an int, id, or bool")
 
     return ExpressionNode(operator_token.value, left_node, right_node)
 
 def parse_condition():
-    left_token = match('IDENTIFIER')  # or match('INT') / match('BOOL') if literals are supported
-    left_node = ASTNode("IDENTIFIER", left_token.value)
     
-    operator_token = lookahead()
-    if operator_token and operator_token.type == 'PUNCTUATION' and operator_token.value in ['>', '<', '>=', '<=', '==', '!=']:
-        operator = match('PUNCTUATION').value
-    elif operator_token and operator_token.type == 'KEYWORD' and operator_token.value in ['is', 'is not']:
-        operator = match('KEYWORD').value
-    else:
-        raise ParseError("Expected a relational operator in condition.")
+    left_token = lookahead() 
 
-    right_token = lookahead()
-    if right_token.type == 'IDENTIFIER':
-        right_node = ASTNode("IDENTIFIER", match('IDENTIFIER').value)
-    elif right_token.type == 'INT':
-        right_node = ASTNode("INT", match('INT').value)
-    elif right_token.type == 'BOOL':
-        right_node = ASTNode("BOOL", match('BOOL').value)
-    else:
-        raise ParseError("Expected an identifier or literal on the right side of the condition.")
-
-    # Create and return a ConditionNode with the left node, operator, and right node
-    return ConditionNode(operator, left_node, right_node)
+    #CONDITION → ASSIGNMENT 
+    if left_token.type == 'IDENTIFIER':
+        left_token = match('IDENTIFIER')
+        print("HERE")
+        next_token = lookahead()
+        if next_token and next_token.type == 'ASSIGNMENT_OPERATOR':
+            return parse_assignment(left_token) 
+    elif left_token.type == 'INT': 
+        left_token = match('INT')
+    elif left_token.type == 'BOOL': 
+        left_token = match('BOOL')
+    
+    #CONDITION → EXPRESSION
+    print("SO IM BACK OUT HERE")
+    return parse_expression(left_token)
+    
 
 def parser():
     try:
