@@ -31,7 +31,6 @@ class ASTNode:
             i +=1
         return result
 
-
 class FunctionNode(ASTNode):
     def __init__(self, name):
         super().__init__("FUNCTION", name)
@@ -67,7 +66,7 @@ class AssignmentNode(ASTNode):
 
 keywords = ['castSpell', 'if', 'untilClockStrikes','paint','happilyEverAfter']
 equality_operator = ['is','is not']
-operators = [')', '(', '>=', '<=','>','<','-', '+', '*', '/']
+operators = ['>=', '<=','>','<','-', '+', '*', '/']
 assignment_operator = '='
 
 

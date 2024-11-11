@@ -1,7 +1,9 @@
 from parser import parser, token
 
-#INPUT 2
-tokens = [
+#INPUT 2 
+#scanner output
+
+output = [
     token('KEYWORD', 'castSpell'),        
     token('IDENTIFIER', 'repeat'),        
     token('PUNCTUATION', '('),             
@@ -25,7 +27,7 @@ tokens = [
     token('IDENTIFIER', 'clock4'),
     token('PUNCTUATION', ')')
 ]
-parser(tokens)
+parser(output)
 
 #expected output 
 # FUNCTION (castSpell)

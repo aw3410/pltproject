@@ -1,7 +1,9 @@
 
 from parser import parser, token
 
-tokens = [
+
+#scanner output
+output = [
     token('KEYWORD', 'castSpell'),        
     token('IDENTIFIER', 'error'),          
     token('PUNCTUATION', '('),             
@@ -10,6 +12,6 @@ tokens = [
     token('IDENTIFIER', 'a'),              
     token('OPERATOR', '+') 
 ]
-parser(tokens)
+parser(output)
 # Expected Output: 
 # Parse Error: Invalid expression syntax: Expected an int, id, or bool

@@ -1,6 +1,8 @@
 
 from parser import parser, token
-tokens = [
+
+# scanner output
+output = [
     token('KEYWORD', 'castSpell'),
     token('IDENTIFIER', 'howmanyvillains'),
     token('PUNCTUATION', '('),
@@ -19,7 +21,7 @@ tokens = [
     token('KEYWORD', 'happilyEverAfter'),
     token('IDENTIFIER', 'villain')
 ]
-parser(tokens)
+parser(output)
 # expected output: 
 # FUNCTION (castSpell)
 # ├──   IDENTIFIER (howmanyvillains)

@@ -1,8 +1,8 @@
 
 from parser import parser, token
 
-
-tokens = [
+#scanner output
+output = [
    token('KEYWORD', 'castSpell'),       
    token('IDENTIFIER', 'helloWorld'),       
    token('PUNCTUATION', ':'),                      
@@ -11,6 +11,6 @@ tokens = [
    token('STRING', 'Hello Kingdom'),
    token('PUNCTUATION', ')') ]
 
-parser(tokens)
+parser(output)
 #expected output: 
 #Parse Error: Function declaration must have parentheses after the identifier.

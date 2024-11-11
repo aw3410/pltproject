@@ -1,7 +1,9 @@
 
 from parser import parser, token
 
-tokens = [ token('KEYWORD', 'castSpell'),
+#scanner output
+
+output = [ token('KEYWORD', 'castSpell'),
     token('IDENTIFIER', 'princess'),
     token('PUNCTUATION', '('),
     token('PUNCTUATION', ')'),
@@ -11,7 +13,7 @@ tokens = [ token('KEYWORD', 'castSpell'),
     token('STRING', 'hello princess'),
     token('PUNCTUATION', ')') ]
 
-parser(tokens)
+parser(output)
 
 # expected output: 
 # FUNCTION (castSpell)
