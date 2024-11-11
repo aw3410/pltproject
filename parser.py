@@ -5,6 +5,53 @@ class token:
         self.type = type
         self.value = value
 
+#INPUT 1
+tokens = [ token('KEYWORD', 'castSpell'),
+    token('IDENTIFIER', 'princess'),
+    token('PUNCTUATION', '('),
+    token('PUNCTUATION', ')'),
+    token('PUNCTUATION', ':'),
+    token('KEYWORD', 'paint'),
+    token('PUNCTUATION', '('),
+    token('STRING', 'hello princess'),
+    token('PUNCTUATION', ')') ]
+
+# #INPUT 2
+# tokens = [
+#     token('KEYWORD', 'castSpell'),        
+#     token('IDENTIFIER', 'repeat'),        
+#     token('PUNCTUATION', '('),             
+#     token('PUNCTUATION', ')'),            
+#     token('PUNCTUATION', ':'),            
+#     token('IDENTIFIER', 'clock'),          
+#     token('ASSIGNMENT_OPERATOR', '='),             
+#     token('INT', '12'),             
+#     token('KEYWORD', 'untilClockStrikes'), 
+#     token('PUNCTUATION', '('),             
+#     token('INT', '12'),  
+#     token('PUNCTUATION', ')'),            
+#     token('PUNCTUATION', ':'),             
+#     token('IDENTIFIER', 'clock2'),          
+#     token('ASSIGNMENT_OPERATOR', '='),             
+#     token('IDENTIFIER', 'clock3'),          
+#     token('OPERATOR', '-'),                
+#     token('INT', '1'),            
+#     token('KEYWORD', 'paint'),
+#     token('PUNCTUATION', '('),
+#     token('IDENTIFIER', 'clock4'),
+#     token('PUNCTUATION', ')')
+# ]
+
+#INPUT 3
+# tokens = [
+#    token('KEYWORD', 'castSpell'),       
+#    token('IDENTIFIER', 'helloWorld'),       
+#    token('PUNCTUATION', ':'),                      
+#    token('KEYWORD', 'paint'),
+#    token('PUNCTUATION', '('),
+#    token('STRING', 'Hello Kingdom'),
+#    token('PUNCTUATION', ')') ]
+
 #INPUT 4
 # tokens = [
 #     token('KEYWORD', 'castSpell'),        
@@ -16,16 +63,26 @@ class token:
 #     token('OPERATOR', '+') 
 # ]
 
-#INPUT 3
+#INPUT 5
 tokens = [
-   token('KEYWORD', 'castSpell'),       
-   token('IDENTIFIER', 'helloWorld'),       
-   token('PUNCTUATION', ':'),                      
-   token('KEYWORD', 'paint'),
-   token('PUNCTUATION', '('),
-   token('STRING', 'Hello Kingdom'),
-   token('PUNCTUATION', ')') ]
-
+    token('KEYWORD', 'castSpell'),
+    token('IDENTIFIER', 'howmanyvillains'),
+    token('PUNCTUATION', '('),
+    token('PUNCTUATION', ')'),
+    token('PUNCTUATION', ':'),
+    token('KEYWORD', 'if'),
+    token('PUNCTUATION', '('),
+    token('IDENTIFIER', 'numberofprinces'),
+    token('OPERATOR', '>'),
+    token('INT', '5'),
+    token('PUNCTUATION', ')'),
+    token('PUNCTUATION', ':'),
+    token('IDENTIFIER', 'numberofvillains'),
+    token('ASSIGNMENT_OPERATOR', '='),
+    token('INT', '0'),
+    token('KEYWORD', 'happilyEverAfter'),
+    token('IDENTIFIER', 'villain')
+]
 
 class ParseError(Exception):
     pass
@@ -210,7 +267,6 @@ def parse_statement_block():
         token = lookahead()
         #STATEMENT_BLOCK → FUNCTION STATEMENT_BLOCK
         if token.type == 'KEYWORD' and token.value in keywords:
-            print(token.value)
             function_node = parse_function()
             statement_block_node.add_child(function_node)
         

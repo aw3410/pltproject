@@ -11,3 +11,6 @@ tokens = [
    token('PUNCTUATION', '('),
    token('STRING', 'Hello Kingdom'),
    token('PUNCTUATION', ')') ]
+
+#expected output: 
+#Parse Error: Function declaration must have parentheses after the identifier.

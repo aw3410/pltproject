@@ -19,3 +19,20 @@ tokens = [
     token('KEYWORD', 'happilyEverAfter'),
     token('IDENTIFIER', 'villain')
 ]
+
+# expected output: 
+# FUNCTION (castSpell)
+# ├──   IDENTIFIER (howmanyvillains)
+# └──   STATEMENT_BLOCK
+#   └──     FUNCTION (if)
+#     ├──       EXPRESSION
+#       ├──         IDENTIFIER (numberofprinces)
+#       ├──         >
+#       └──         INT (5)
+#     └──       STATEMENT_BLOCK
+#       ├──         ASSIGNMENT
+#         ├──           IDENTIFIER (numberofvillains)
+#         ├──           =
+#         └──           INT (0)
+#       └──         FUNCTION (happilyEverAfter)
+#         └──           IDENTIFIER (villain)

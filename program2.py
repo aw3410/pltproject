@@ -26,3 +26,25 @@ tokens = [
     token('PUNCTUATION', ')')
 ]
 parser()
+
+#expected output 
+# FUNCTION (castSpell)
+# ├──   IDENTIFIER (repeat)
+# └──   STATEMENT_BLOCK
+#   ├──     ASSIGNMENT
+#     ├──       IDENTIFIER (clock)
+#     ├──       =
+#     └──       INT (12)
+#   └──     FUNCTION (untilClockStrikes)
+#     ├──       INT (12)
+#     └──       STATEMENT_BLOCK
+#       ├──         ASSIGNMENT
+#         ├──           IDENTIFIER (clock2)
+#         ├──           =
+#         └──           EXPRESSION
+#           ├──             IDENTIFIER (clock3)
+#           ├──             -
+#           └──             INT (1)
+#       └──         FUNCTION (paint)
+#         └──           IDENTIFIER (clock4)
+

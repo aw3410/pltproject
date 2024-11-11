@@ -7,3 +7,10 @@ tokens = [ token('KEYWORD', 'castSpell'),
     token('PUNCTUATION', '('),
     token('STRING', 'hello princess'),
     token('PUNCTUATION', ')') ]
+
+# expected output: 
+# FUNCTION (castSpell)
+# ├──   IDENTIFIER (princess)
+# └──   STATEMENT_BLOCK
+#   └──     FUNCTION (paint)
+#     └──       STRING (hello princess)
