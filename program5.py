@@ -1,6 +1,12 @@
 
 from parser import parser, token
 
+#castSpell howmanyvillains(): 
+	# if (numberofprinces > 5): 
+	# 	numberofvillains = 0
+	# 	happilyeverafter villain 
+
+
 # scanner output
 output = [
     token('KEYWORD', 'castSpell'),

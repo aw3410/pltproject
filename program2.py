@@ -1,5 +1,11 @@
 from parser import parser, token
 
+#castSpell repeat():
+# clock = 12
+# untilClockStrikes (12):
+# 	clock = clock - 1
+# 	paint(clock)
+
 #INPUT 2 
 #scanner output
 
