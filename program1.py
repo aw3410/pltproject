@@ -1,11 +1,19 @@
 
 from scanner import scan
 from parser import parser
+from generator import CodeGenerator
 
-# scanner input 
-input = "castSpell princess(): paint('hello princess')"
-scanner_output = scan(input) 
-parser(scanner_output) #pass scanner output to parser 
+def main():
+  # scanner input 
+  input = "castSpell princess(): paint('hello princess')"
+  scanner_output = scan(input) 
+  ast = parser(scanner_output) #pass scanner output to parser 
+
+  codegen = CodeGenerator(ast)
+  codegen.generate_code()
+  generated_code = codegen.output_code()
+  print(generated_code)
+
 
 #Expected scanner output:
 '''['<KEYWORD, castSpell>', 
@@ -25,3 +33,7 @@ parser(scanner_output) #pass scanner output to parser
  └──   STATEMENT_BLOCK
    └──     FUNCTION (paint)
      └──       STRING ('hello princess') '''
+
+#Expected codegen output:
+'''def princess():
+  print('hello princess')'''

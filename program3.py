@@ -9,13 +9,26 @@ parser(scanner_output)
 
 #Expected scanner output
 
-'''output = ['<KEYWORD, castSpell>', 
- '<IDENTIFIER, helloWorld>', 
- '<PUNCTUATION, :>', 
- '<KEYWORD, paint>', 
- '<PUNCTUATION, (>', 
- "<STRING, 'Hello kingdom'>", 
- '<PUNCTUATION, )>']'''
+'''scan_output = ['<KEYWORD, castSpell>', 
+          '<IDENTIFIER, repeat>', 
+          '<PUNCTUATION, (>', 
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<IDENTIFIER, clock>', 
+          '<ASSIGNMENT_OPERATOR, =>', 
+          '<INT, 12>', 
+          '<KEYWORD, untilClockStrikes>', 
+          '<PUNCTUATION, (>',
+          '<PUNCTUATION, )>', 
+          '<PUNCTUATION, :>', 
+          '<IDENTIFIER, clock>', 
+          '<ASSIGNMENT_OPERATOR, =>', 
+          '<IDENTIFIER, clock>', 
+          '<OPERATOR, ->', 
+          '<INT, 1>', 
+          '<KEYWORD, paint>', 
+          '<PUNCTUATION, (>',  
+          '<PUNCTUATION, )>'] '''
 
 
 #Expected parser output: 

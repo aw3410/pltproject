@@ -266,7 +266,7 @@ def parser(scan_output):
     token_index = 0
     try:
         ast = parse_function()
-        print(ast)
+        return ast
     except ParseError as e:
         print("Parse Error:", e)
 
