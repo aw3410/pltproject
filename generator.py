@@ -5,12 +5,15 @@ class CodeGenerator:
         self.ast = ast
         self.generated_code = []
         self.errors = []
+        self.unreachable = False;
+        self.unreachablestart = False; 
 
     def generate_code(self, node=None, level=0):
         if node is None:
             node = self.ast  
 
         indent = "    " * level  
+        
         if node.type == "FUNCTION":
             id = node.value
             if id == 'castSpell':
@@ -29,12 +32,27 @@ class CodeGenerator:
                     self.generated_code.append(f"while clock > 0:")
                 else:
                     self.errors.append(f"untilClockStrikes is missing an int argument at stage {node.type}")
+            if id == 'if': 
+                expression = next((child for child in node.children if child.type == 'EXPRESSION'), None)
+                if expression:
+                    ifcondition = self.expression(expression)
+                    self.generated_code.append(f"{indent}if {ifcondition}:")
+                else:
+                    self.errors.append(f"if is missing a condition at stage {node.type}")
+            if id == 'happilyEverAfter': 
+                identifier = next((child for child in node.children), None)
+                if identifier:
+                    self.generated_code.append(f"{indent}return({identifier.value})")
+                    self.unreachable = True
+                else:
+                    self.errors.append(f"happilyEverAfter is missing an identifier or integer at stage {node.type}")
             for child in node.children:
                 self.generate_code(child, level + 1)
 
         elif node.type == "STATEMENT_BLOCK":
             for child in node.children:
                 self.generate_code(child, level)
+            self.unreachable = False
             
         elif node.type == "ASSIGNMENT":
             variable = node.children[0].value
@@ -52,12 +70,17 @@ class CodeGenerator:
             self.generated_code.append(f"{indent}if {condition}:")
             self.generate_code(node.children[3], level + 1)
 
+        if self.unreachable: 
+            if not self.errors: 
+                self.errors.append(f"unreachable code detected at stage {node.type} and value {node.value}")
+            return;
+
 
     def expression(self, node):
-        right_variable = node.children[0].value
+        left_variable = node.children[0].value
         op = node.children[1].type
         right_value = node.children[2].value
-        return f"{right_variable}{op}{right_value}"
+        return f"{left_variable}{op}{right_value}"
 
     def output_code(self):
         if (self.errors):
@@ -73,25 +96,44 @@ def main(scan_output):
     generated_code = codegen.output_code()
     print(generated_code)
 
+# scan_output = ['<KEYWORD, castSpell>', 
+#           '<IDENTIFIER, repeat>', 
+#           '<PUNCTUATION, (>', 
+#           '<PUNCTUATION, )>', 
+#           '<PUNCTUATION, :>', 
+#           '<IDENTIFIER, clock>', 
+#           '<ASSIGNMENT_OPERATOR, =>', 
+#           '<INT, 12>', 
+#           '<KEYWORD, untilClockStrikes>', 
+#           '<PUNCTUATION, (>',
+#           '<PUNCTUATION, )>', 
+#           '<PUNCTUATION, :>', 
+#           '<IDENTIFIER, clock>', 
+#           '<ASSIGNMENT_OPERATOR, =>', 
+#           '<IDENTIFIER, clock>', 
+#           '<OPERATOR, ->', 
+#           '<INT, 1>', 
+#           '<KEYWORD, paint>', 
+#           '<PUNCTUATION, (>',  
+#           '<PUNCTUATION, )>']
+
 scan_output = ['<KEYWORD, castSpell>', 
-          '<IDENTIFIER, repeat>', 
-          '<PUNCTUATION, (>', 
-          '<PUNCTUATION, )>', 
-          '<PUNCTUATION, :>', 
-          '<IDENTIFIER, clock>', 
-          '<ASSIGNMENT_OPERATOR, =>', 
-          '<INT, 12>', 
-          '<KEYWORD, untilClockStrikes>', 
-          '<PUNCTUATION, (>',
-          '<PUNCTUATION, )>', 
-          '<PUNCTUATION, :>', 
-          '<IDENTIFIER, clock>', 
-          '<ASSIGNMENT_OPERATOR, =>', 
-          '<IDENTIFIER, clock>', 
-          '<OPERATOR, ->', 
-          '<INT, 1>', 
-          '<KEYWORD, paint>', 
-          '<PUNCTUATION, (>',  
-          '<PUNCTUATION, )>']
+'<IDENTIFIER, nomidnight>', 
+'<PUNCTUATION, (>', 
+'<PUNCTUATION, )>', 
+'<PUNCTUATION, :>', 
+'<KEYWORD, if>', 
+'<PUNCTUATION, (>', 
+'<IDENTIFIER, clock>', 
+'<OPERATOR, >>', '<INT, 12>', 
+'<PUNCTUATION, )>', 
+'<PUNCTUATION, :>', 
+'<KEYWORD, happilyEverAfter>', 
+'<IDENTIFIER, clock>', 
+'<KEYWORD, paint>', 
+'<PUNCTUATION, (>', 
+"<STRING, 'bye bye cinderella'>", 
+'<PUNCTUATION, )>']
+
 
 main(scan_output)

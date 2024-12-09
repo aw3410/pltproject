@@ -221,6 +221,8 @@ def parse_expression(left_node):
   
     if operator_token.type == 'OPERATOR' and operator_token.value in operators:
         match('OPERATOR').value
+    elif operator_token.type == 'EQUALITY_OPERATOR' and operator_token.value in equality_operator: 
+        match('EQUALITY_OPERATOR').value
     else: 
         raise ParseError(f"Invalid expression syntax: Expected an operator, got type: {operator_token.type}, value: {operator_token.value if operator_token else 'None'}")
 

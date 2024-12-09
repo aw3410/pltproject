@@ -3,9 +3,11 @@ from parser import parser
 from scanner import scan
 
 #scanner input
-input = 'castSpell howmanyvillains(): if (numberofprinces > 5): numberofvillains = 0 happilyEverAfter villain'
+input = 'castSpell howmanyvillains(): if (numberofprinces > 5): numberofvillains = 0 happilyEverAfter numberofvillains'
 scanner_output = scan(input)
-parser(scanner_output)
+print(scanner_output)
+parser_output = parser(scanner_output)
+print(parser_output)
 
 # Expected scanner output
 '''
@@ -25,7 +27,7 @@ output = ['<KEYWORD, castSpell>',
           '<ASSIGNMENT_OPERATOR, =>', 
           '<INT, 0>', 
           '<KEYWORD, happilyEverAfter>', 
-          '<IDENTIFIER, villain>']
+          '<IDENTIFIER, numberofvillains>']
 '''
 # Expected parser output: 
 '''
@@ -43,5 +45,11 @@ FUNCTION (castSpell)
          ├──           =
          └──           INT (0)
        └──         FUNCTION (happilyEverAfter)
-         └──           IDENTIFIER (villain)
+         └──           IDENTIFIER (numberofvillains)
 '''
+
+# Expected codegen output: 
+'''def howmanyvillains():
+    if numberofprinces>5:
+        numberofvillains = 0
+        return(numberofvillains)'''

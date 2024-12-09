@@ -86,10 +86,10 @@ def scan(input):
             if current in keywords:
                 tokenType = 'KEYWORD'
 
-            elif c in equality_operators: 
+            elif current in equality_operators: 
                 tokenType = 'EQUALITY_OPERATOR'
 
-            elif c in bool: 
+            elif current in bool: 
                 tokenType = 'BOOL'
 
             else:
