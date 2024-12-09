@@ -5,7 +5,6 @@ class CodeGenerator:
         self.ast = ast
         self.generated_code = []
         self.errors = []
-        self.unreachable = False
 
     def generate_code(self, node=None, level=0):
         if node is None:
@@ -42,16 +41,19 @@ class CodeGenerator:
                 identifier = next((child for child in node.children), None)
                 if identifier:
                     self.generated_code.append(f"{indent}return({identifier.value})")
-                    self.unreachable = True
                 else:
                     self.errors.append(f"happilyEverAfter is missing an identifier or integer at stage {node.type}")
             for child in node.children:
                 self.generate_code(child, level + 1)
 
         elif node.type == "STATEMENT_BLOCK":
+            returnedalready = False  
             for child in node.children:
+                if returnedalready:
+                    self.errors.append(f"unreachable code detected at stage {child.type} and value {child.value}")
+                elif child.type == "FUNCTION" and child.value == "happilyEverAfter":
+                    returnedalready = True 
                 self.generate_code(child, level)
-            self.unreachable = False
             
         elif node.type == "ASSIGNMENT":
             variable = node.children[0].value
@@ -69,10 +71,6 @@ class CodeGenerator:
             self.generated_code.append(f"{indent}if {condition}:")
             self.generate_code(node.children[3], level + 1)
 
-        if self.unreachable: 
-            if not self.errors: 
-                self.errors.append(f"unreachable code detected at stage {node.type} and value {node.value}")
-            return;
 
 
     def expression(self, node):

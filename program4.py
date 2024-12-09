@@ -47,4 +47,4 @@ FUNCTION (castSpell)
         └──           STRING ('bye bye cinderella')
 '''
 # Expected codegen output
-'''unreachable code detected at stage IDENTIFIER and value clock'''
+'''unreachable code detected at stage FUNCTION and value paint'''
