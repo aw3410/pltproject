@@ -10,7 +10,10 @@ python output2.py
 
 #programs 3 and 4 demonstrate errors 
 python program3.py
-python program4.py
+
+#for program 4 - demonstrated dead code elimination 
+python program4.py > output4.py
+python output4.py
 
 #for program 5 
 python program5.py > output5.py

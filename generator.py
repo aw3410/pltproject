@@ -5,6 +5,7 @@ class CodeGenerator:
         self.ast = ast
         self.generated_code = []
         self.errors = []
+        self.returnedalready = False
 
     def generate_code(self, node=None, level=0):
         if node is None:
@@ -47,12 +48,13 @@ class CodeGenerator:
                 self.generate_code(child, level + 1)
 
         elif node.type == "STATEMENT_BLOCK":
-            returnedalready = False  
             for child in node.children:
-                if returnedalready:
-                    self.errors.append(f"unreachable code detected at stage {child.type} and value {child.value}")
+                if self.returnedalready:
+                    self.errors.append(f"#unreachable code detected at stage {child.type} and value {child.value}")
+                    continue
                 elif child.type == "FUNCTION" and child.value == "happilyEverAfter":
-                    returnedalready = True 
+                    self.returnedalready = True 
+                
                 self.generate_code(child, level)
             
         elif node.type == "ASSIGNMENT":
@@ -78,9 +80,18 @@ class CodeGenerator:
         return f"{left_variable}{op}{right_value}"
 
     def output_code(self):
-        if (self.errors):
-            return "\n".join(self.errors)
-        return "\n".join(self.generated_code)
+        if self.returnedalready:
+            output = []
+            if self.errors:
+                output.append("\n".join(self.errors))  
+            output.append("\n".join(self.generated_code))  
+            return "\n\n".join(output)
+
+        else: 
+            if self.errors: 
+                return "\n".join(self.errors)
+            else:
+                return "\n".join(self.generated_code)
 
 
 def generator(ast):
