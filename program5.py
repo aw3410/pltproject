@@ -4,8 +4,8 @@ from scanner import scan
 
 input = 'castSpell howmanyvillains(): numberofprinces = 10 if (numberofprinces > 5): numberofvillains = 0 happilyEverAfter numberofvillains'
 scanner_output = scan(input)
-parser(scanner_output)
-generator_output = generator(scanner_output)
+ast = parser(scanner_output)
+generator_output = generator(ast)
 
 final_pipeline_code = generator_output + "\nprint(howmanyvillains())"
 print(final_pipeline_code)

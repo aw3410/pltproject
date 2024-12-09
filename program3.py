@@ -6,8 +6,8 @@ from generator import generator
 #scanner input
 input = 'castSpell repeat(): clock = 12 untilClockStrikes (): clock = clock - 1 paint()'
 scanner_output = scan(input)
-parser(scanner_output)
-generator_output = generator(scanner_output)
+ast = parser(scanner_output)
+generator_output = generator(ast)
 print(generator_output)
 
 #Expected scanner output
@@ -36,3 +36,7 @@ print(generator_output)
 
 #Expected parser output: 
 #Parse Error: Function declaration must have parentheses after the identifier.
+
+#Expected codegen output:
+'''untilClockStrikes is missing an int argument at stage FUNCTION
+paint is missing an argument at stage FUNCTION'''

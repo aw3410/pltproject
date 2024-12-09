@@ -71,8 +71,6 @@ class CodeGenerator:
             self.generated_code.append(f"{indent}if {condition}:")
             self.generate_code(node.children[3], level + 1)
 
-
-
     def expression(self, node):
         left_variable = node.children[0].value
         op = node.children[1].type
@@ -85,8 +83,7 @@ class CodeGenerator:
         return "\n".join(self.generated_code)
 
 
-def generator(scan_output):
-    ast = parser(scan_output)
+def generator(ast):
     codegen = CodeGenerator(ast)
     codegen.generate_code()
     generated_code = codegen.output_code()

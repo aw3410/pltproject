@@ -5,9 +5,10 @@ from generator import generator
 #scanner input
 input = "castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)"
 scanner_output = scan(input)
-generator_output = generator(scanner_output)
+ast = parser(scanner_output)
+generator_output = generator(ast)
 
-final_pipeline_code = generator_output + "\nrepeat()"
+final_pipeline_code = generator_output + "\nrepeat()" #function call
 print(final_pipeline_code)
 
 

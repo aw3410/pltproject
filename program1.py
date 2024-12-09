@@ -5,10 +5,10 @@ from generator import generator
 
 input = "castSpell princess(): paint('hello princess')"
 scanner_output = scan(input) 
-parser(scanner_output)
-generator_output = generator(scanner_output)
+ast = parser(scanner_output)
+generator_output = generator(ast)
 
-final_pipeline_code = generator_output + "\nprincess()"
+final_pipeline_code = generator_output + "\nprincess()" #function call
 print(final_pipeline_code)
 
 

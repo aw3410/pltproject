@@ -8,7 +8,7 @@ python output1.py
 python program2.py > output2.py 
 python output2.py 
 
-#programs 3 and 4 are errors 
+#programs 3 and 4 demonstrate errors 
 python program3.py
 python program4.py
 
