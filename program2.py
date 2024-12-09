@@ -1,5 +1,6 @@
 from parser import parser
 from scanner import scan
+from generator import generator
 
 #scanner input
 input = 'castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)'
@@ -11,7 +12,8 @@ input = 'castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 
             paint(clock)'''
 
 scanner_output = scan(input)
-parser(scanner_output) #pass scanner output to parser
+parser(scanner_output) 
+generator(scanner_output)
 
 #Expected scanner output:
 '''output = ['<KEYWORD, castSpell>', 

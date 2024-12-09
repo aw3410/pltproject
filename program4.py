@@ -1,13 +1,14 @@
 from scanner import scan
 from parser import parser
+from generator import generator
 
 
 #scanner input
 input = "castSpell nomidnight(): if (clock > 12): happilyEverAfter clock paint('bye bye cinderella')"
 scanner_output = scan(input)
-print(scanner_output)
-parser_output = parser(scanner_output)
-print(parser_output)
+parser(scanner_output)
+generator(scanner_output)
+
 
 #Expected scanner output
 '''output = ['<KEYWORD, castSpell>', 

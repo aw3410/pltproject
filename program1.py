@@ -1,18 +1,13 @@
 
 from scanner import scan
 from parser import parser
-from generator import CodeGenerator
+from generator import generator
 
-def main():
-  # scanner input 
-  input = "castSpell princess(): paint('hello princess')"
-  scanner_output = scan(input) 
-  ast = parser(scanner_output) #pass scanner output to parser 
+input = "castSpell princess(): paint('hello princess')"
+scanner_output = scan(input) 
+parser(scanner_output)
+generator(scanner_output)
 
-  codegen = CodeGenerator(ast)
-  codegen.generate_code()
-  generated_code = codegen.output_code()
-  print(generated_code)
 
 
 #Expected scanner output:

@@ -1,13 +1,13 @@
-
+from generator import generator
 from parser import parser
 from scanner import scan
 
 #scanner input
 input = 'castSpell howmanyvillains(): if (numberofprinces > 5): numberofvillains = 0 happilyEverAfter numberofvillains'
 scanner_output = scan(input)
-print(scanner_output)
 parser_output = parser(scanner_output)
-print(parser_output)
+generator(scanner_output)
+
 
 # Expected scanner output
 '''
