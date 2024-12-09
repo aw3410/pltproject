@@ -5,8 +5,7 @@ class CodeGenerator:
         self.ast = ast
         self.generated_code = []
         self.errors = []
-        self.unreachable = False;
-        self.unreachablestart = False; 
+        self.unreachable = False
 
     def generate_code(self, node=None, level=0):
         if node is None:
@@ -88,52 +87,9 @@ class CodeGenerator:
         return "\n".join(self.generated_code)
 
 
-
-def main(scan_output):
+def generator(scan_output):
     ast = parser(scan_output)
     codegen = CodeGenerator(ast)
     codegen.generate_code()
     generated_code = codegen.output_code()
     print(generated_code)
-
-# scan_output = ['<KEYWORD, castSpell>', 
-#           '<IDENTIFIER, repeat>', 
-#           '<PUNCTUATION, (>', 
-#           '<PUNCTUATION, )>', 
-#           '<PUNCTUATION, :>', 
-#           '<IDENTIFIER, clock>', 
-#           '<ASSIGNMENT_OPERATOR, =>', 
-#           '<INT, 12>', 
-#           '<KEYWORD, untilClockStrikes>', 
-#           '<PUNCTUATION, (>',
-#           '<PUNCTUATION, )>', 
-#           '<PUNCTUATION, :>', 
-#           '<IDENTIFIER, clock>', 
-#           '<ASSIGNMENT_OPERATOR, =>', 
-#           '<IDENTIFIER, clock>', 
-#           '<OPERATOR, ->', 
-#           '<INT, 1>', 
-#           '<KEYWORD, paint>', 
-#           '<PUNCTUATION, (>',  
-#           '<PUNCTUATION, )>']
-
-scan_output = ['<KEYWORD, castSpell>', 
-'<IDENTIFIER, nomidnight>', 
-'<PUNCTUATION, (>', 
-'<PUNCTUATION, )>', 
-'<PUNCTUATION, :>', 
-'<KEYWORD, if>', 
-'<PUNCTUATION, (>', 
-'<IDENTIFIER, clock>', 
-'<OPERATOR, >>', '<INT, 12>', 
-'<PUNCTUATION, )>', 
-'<PUNCTUATION, :>', 
-'<KEYWORD, happilyEverAfter>', 
-'<IDENTIFIER, clock>', 
-'<KEYWORD, paint>', 
-'<PUNCTUATION, (>', 
-"<STRING, 'bye bye cinderella'>", 
-'<PUNCTUATION, )>']
-
-
-main(scan_output)
