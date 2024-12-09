@@ -7,6 +7,11 @@ Teammates: Annika Wang (aw3410) and Kira Ariyan (kna2121)
 
 2. In programs 3 and 4, we demonstrated programs that intentionally have syntax or 
     semantic errors to validate error reporting and handling. 
+    In program 4, we demonstrated an unreachable code (paint('bye bye cinderella')) occurs after 
+    happilyEverAfter, our equivalent for return. Thus, the code generation will show an error 
+    at the stage that it occurs, and remove that line from the code. 
+    When we run the program, it'll run without the unreachable line.
+
    Programs 1, 2, and 5 are sample programs cover a wide range of language features including
    loops, if statements, assignments and expressions.  Our sample programs incorporate each part of our compiler,
    converting code from our language to a token list using the scanner, then an abstract syntax tree using our 

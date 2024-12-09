@@ -63,3 +63,6 @@ def nomidnight():
     clock = 13
     if clock>12:
         return clock'''
+
+#Expected program output
+'''13'''

@@ -61,3 +61,6 @@ FUNCTION (castSpell)
     if numberofprinces>5:
         numberofvillains = 0
         return numberofvillains'''
+
+# Expected program output
+'''0'''
