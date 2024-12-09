@@ -11,6 +11,7 @@ Teammates: Annika Wang (aw3410) and Kira Ariyan (kna2121)
     happilyEverAfter, our equivalent for return. Thus, the code generation will show an error 
     at the stage that it occurs, and remove that line from the code. 
     When we run the program, it'll run without the unreachable line.
+    The code error can be shown in the output file of the pipeline.  
 
    Programs 1, 2, and 5 are sample programs cover a wide range of language features including
    loops, if statements, assignments and expressions.  Our sample programs incorporate each part of our compiler,
@@ -21,4 +22,4 @@ Teammates: Annika Wang (aw3410) and Kira Ariyan (kna2121)
 the result to an output file which then runs the generated code to display the expected output.
 
 
-6. Video: 
+6. Video: https://youtu.be/oKLbydpAIZ8
