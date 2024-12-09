@@ -34,3 +34,5 @@ print(final_pipeline_code)
 #Expected codegen output:
 '''def princess():
   print('hello princess')'''
+
+# --> outputs hello princess

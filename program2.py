@@ -64,3 +64,18 @@ print(final_pipeline_code)
         untilClockStrikes (12): 
           clock = clock - 1 
             paint(clock)'''
+
+# outputs --> 
+'''
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+'''
