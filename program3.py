@@ -7,8 +7,8 @@ from generator import generator
 input = 'castSpell repeat(): clock = 12 untilClockStrikes (): clock = clock - 1 paint()'
 scanner_output = scan(input)
 parser(scanner_output)
-generator(scanner_output)
-
+generator_output = generator(scanner_output)
+print(generator_output)
 
 #Expected scanner output
 

@@ -27,7 +27,7 @@ class CodeGenerator:
             if id =='untilClockStrikes':
                 number = next((child for child in node.children if child.type == 'INT'), None)
                 if number:
-                    self.generated_code.append(f"while clock > 0:")
+                    self.generated_code.append(f"{indent}while clock > 0:")
                 else:
                     self.errors.append(f"untilClockStrikes is missing an int argument at stage {node.type}")
             if id == 'if': 
@@ -40,7 +40,7 @@ class CodeGenerator:
             if id == 'happilyEverAfter': 
                 identifier = next((child for child in node.children), None)
                 if identifier:
-                    self.generated_code.append(f"{indent}return({identifier.value})")
+                    self.generated_code.append(f"{indent}return {identifier.value}")
                 else:
                     self.errors.append(f"happilyEverAfter is missing an identifier or integer at stage {node.type}")
             for child in node.children:
@@ -90,4 +90,4 @@ def generator(scan_output):
     codegen = CodeGenerator(ast)
     codegen.generate_code()
     generated_code = codegen.output_code()
-    print(generated_code)
+    return generated_code

@@ -6,8 +6,10 @@ from generator import generator
 input = "castSpell princess(): paint('hello princess')"
 scanner_output = scan(input) 
 parser(scanner_output)
-generator(scanner_output)
+generator_output = generator(scanner_output)
 
+final_pipeline_code = generator_output + "\nprincess()"
+print(final_pipeline_code)
 
 
 #Expected scanner output:

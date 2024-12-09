@@ -3,17 +3,13 @@ from scanner import scan
 from generator import generator
 
 #scanner input
-input = 'castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)'
-
-'''castSpell repeat(): 
-        clock = 12 
-        untilClockStrikes (12): 
-          clock = clock - 1 
-            paint(clock)'''
-
+input = "castSpell repeat(): clock = 12 untilClockStrikes (12): clock = clock - 1 paint(clock)"
 scanner_output = scan(input)
-parser(scanner_output) 
-generator(scanner_output)
+generator_output = generator(scanner_output)
+
+final_pipeline_code = generator_output + "\nrepeat()"
+print(final_pipeline_code)
+
 
 #Expected scanner output:
 '''output = ['<KEYWORD, castSpell>', 
@@ -61,3 +57,9 @@ generator(scanner_output)
        └──         FUNCTION (paint)
          └──           IDENTIFIER (clock) '''
 
+# Expected codegen output
+'''castSpell repeat(): 
+        clock = 12 
+        untilClockStrikes (12): 
+          clock = clock - 1 
+            paint(clock)'''

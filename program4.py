@@ -7,7 +7,8 @@ from generator import generator
 input = "castSpell nomidnight(): if (clock > 12): happilyEverAfter clock paint('bye bye cinderella')"
 scanner_output = scan(input)
 parser(scanner_output)
-generator(scanner_output)
+generator_output = generator(scanner_output)
+print(generator_output)
 
 
 #Expected scanner output
