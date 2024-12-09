@@ -35,4 +35,5 @@ print(final_pipeline_code)
 '''def princess():
   print('hello princess')'''
 
-# --> outputs hello princess
+# output:
+# hello princess

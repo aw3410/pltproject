@@ -65,7 +65,7 @@ print(final_pipeline_code)
           clock = clock - 1 
             paint(clock)'''
 
-# outputs --> 
+# output :
 '''
 10
 9
